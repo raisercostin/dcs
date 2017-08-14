@@ -1,18 +1,21 @@
 package eu.dcsi.sekyll.docs
 
 import java.io.File
-import java.nio.file.{Files, StandardCopyOption}
+import java.nio.file.{ Files, StandardCopyOption }
 
-import com.lightbend.docs.{Context, TOC}
-import org.pegdown.{Extensions, LinkRenderer, PegDownProcessor, VerbatimSerializer}
+import com.lightbend.docs.{ Context, TOC }
+import org.pegdown.{ Extensions, LinkRenderer, PegDownProcessor, VerbatimSerializer }
 import play.api.Logger
 import play.api.libs.json.Json
 import play.doc.PrettifyVerbatimSerializer
-import play.twirl.api.{Html, Template1}
+import play.twirl.api.{ Html, Template1 }
 import play.utils.UriEncoding
 
 import scala.collection.JavaConverters._
 import scala.xml.XML
+import org.raisercostin.sekyll.Site
+import org.raisercostin.jedi.Locations
+
 object Main {
   def main(args: Array[String]): Unit = {
     DocumentationGenerator.main(args)
@@ -33,20 +36,17 @@ object DocumentationGenerator extends App {
   // This impacts what gets displayed on the main documentation index.
   val stableVersions = Seq(
     VersionSummary("1.3.x", s"Lagom $currentLagomVersion (current stable release)"),
-    VersionSummary("1.2.x", s"Lagom 1.2.3 (previous stable release)")
-  )
+    VersionSummary("1.2.x", s"Lagom 1.2.3 (previous stable release)"))
 
   val previewVersions = Seq(
-    VersionSummary("1.4.x", s"Lagom 1.4.0-M1 (preview)")
-  )
+    VersionSummary("1.4.x", s"Lagom 1.4.0-M1 (preview)"))
 
   val oldVersions = Seq(
     VersionSummary("1.1.x", s"Lagom 1.1.0"),
-    VersionSummary("1.0.x", s"Lagom 1.0.0")
-  )
+    VersionSummary("1.0.x", s"Lagom 1.0.0"))
 
   val communityContents = Seq(
-  //    CommunityContent("title", "href", "hrefTitle"),
+    //    CommunityContent("title", "href", "hrefTitle"),
     CommunityContent("Lagom Circuit Breaker: What, Why and How?",
       "https://blog.knoldus.com/2017/06/15/lagom-circuit-breaker-what-why-and-how/",
       "Knoldus"),
@@ -64,9 +64,7 @@ object DocumentationGenerator extends App {
       "JWORKS TECH BLOG"),
     CommunityContent("Run a Lagom service standalone with Zookeeper",
       "https://thecoderwriter.wordpress.com/2016/09/24/run-a-lagom-service-standalone-with-zookeeper/",
-      "Coder's IO")
-
-  )
+      "Coder's IO"))
 
   // Set this to Some("your-github-account-name") if you want to deploy the docs to the gh-pages of your own fork
   // of the repo
@@ -75,41 +73,14 @@ object DocumentationGenerator extends App {
   //for master
   //val (baseUrl, context) = ("http://raisercostin.org/sekyll","/sekyll")
   //for template
-  val (baseUrl, context) = ("http://localhost:8080","")
-    //gitHubAccount match {
-    //case Some(account) => (s"http://$account.github.io/lagom.github.io", "/lagom.github.io")
-    //case None => ("https://www.lagomframework.com", "")
+  val (baseUrl, context) = ("http://localhost:8080", "")
+  //gitHubAccount match {
+  //case Some(account) => (s"http://$account.github.io/lagom.github.io", "/lagom.github.io")
+  //case None => ("https://www.lagomframework.com", "")
   //}
 
   // Templated pages to generate
-  val templatePages: Seq[(String, Template1[LagomContext, Html])] = Seq(
-    "index2.html" -> html.index,
-    "get-involved.html" -> html.getinvolved,
-    "get-started.html" -> html.getstarted,
-    "get-started-java.html" -> html.getstartedjava,
-    "get-started-java-sbt.html" -> html.getstartedjavasbt,
-    "get-started-java-maven.html" -> html.getstartedjavamaven,
-    "get-started-scala.html" -> html.getstartedscala,
-
-    "about.html" -> eu.dcsi.website.html.about,
-    "contact.html" -> eu.dcsi.website.html.contact,
-    "blog-home-1.html" -> eu.dcsi.website.html.blogHome1,
-    "blog-home-2.html" -> eu.dcsi.website.html.blogHome2,
-    //"blog-post.html" -> eu.dcsi.website.html.blogPost,
-    "faq.html" -> eu.dcsi.website.html.faq,
-    "full-width.html" -> eu.dcsi.website.html.fullWidth,
-    "index.html" -> eu.dcsi.website.html.index,
-    "404.html" -> eu.dcsi.website.html.page404,
-    "portfolio-1-col.html" -> eu.dcsi.website.html.portfolio1col,
-    "portfolio-2-col.html" -> eu.dcsi.website.html.portfolio2col,
-    "portfolio-3-col.html" -> eu.dcsi.website.html.portfolio3col,
-    "portfolio-4-col.html" -> eu.dcsi.website.html.portfolio4col,
-    "portfolio-item.html" -> eu.dcsi.website.html.portfolioItem,
-    "pricing.html" -> eu.dcsi.website.html.pricing,
-    "services.html" -> eu.dcsi.website.html.services,
-    "sidebar.html" -> eu.dcsi.website.html.sidebar
-  )
-
+  val templatePages: Seq[(String, Template1[LagomContext, Html])] = Site.pages
   // Redirects
   // Since this is a static site, and GitHub doesn't support redirects, we generate pages that use HTML redirects.
   val redirects: Seq[(String, String)] = Seq(
@@ -117,8 +88,7 @@ object DocumentationGenerator extends App {
     "/documentation/java/index.html" -> s"$context/documentation/$currentDocsVersion/java/Home.html",
     // Redirect anyone heading to the old download page to the get started page
     "/download.html" -> "/get-started.html",
-    "blog-post.html" -> "/blog/article1.html"
-  )
+    "blog-post.html" -> "/blog/article1.html")
 
   val outputDir = new File(args(0))
   val docsDir = new File(args(1))
@@ -152,19 +122,24 @@ object DocumentationGenerator extends App {
   }
 
   def generateRedirect(from: String, to: String): OutputFile = {
-    savePage(s"redirect $from -> $to",from, html.redirect(to), includeInSitemap = false)
+    savePage(s"redirect $from -> $to", from, html.redirect(to), includeInSitemap = false)
   }
 
-  def savePage(why:String, name: String, rendered: Html, includeInSitemap: Boolean = true,
+  def savePage(why: String, name: String, rendered: Html, includeInSitemap: Boolean = true,
                sitemapPriority: String = "1.0"): OutputFile = {
-    val file = new File(outputDir, name)
-    file.getParentFile.mkdirs()
+    val finalName = if (Locations.file(name).extension.isEmpty)
+      name + "/index.html"
+    else
+      name
+    val file = new File(outputDir, finalName)
+    //file.getParentFile.mkdirs()
     Logger.info(f"savePage [${file.toPath}%-100s] reason: $why")
-    Files.write(file.toPath, rendered.body.getBytes("utf-8"))
-    val sitemapUrl = name match {
-      case "index.html" => ""
+    Locations.file(file).mkdirOnParentIfNecessary.writeContent(rendered.body)
+    //Files.write(file.toPath, rendered.body.getBytes("utf-8"))
+    val sitemapUrl = finalName match {
+      case "index.html"                           => ""
       case index if index.endsWith("/index.html") => index.stripSuffix("/index.html")
-      case other => other
+      case other                                  => other
     }
     OutputFile(file, sitemapUrl, includeInSitemap, sitemapPriority)
   }
@@ -183,7 +158,7 @@ object DocumentationGenerator extends App {
           val strippedTitle = title.dropWhile(c => c == '#' || c == ' ')
           val rendered = markdownToHtml(rest.mkString("\n"))
           val page = html.markdown(strippedTitle, Html(rendered))
-          Seq(savePage(s"From markdown [$file]",path.replaceAll("\\.md$", ".html"), page))
+          Seq(savePage(s"From markdown [$file]", path.replaceAll("\\.md$", ".html"), page))
         case Nil => throw new IllegalArgumentException("Markdown files must start with a heading using the # syntax")
       }
     }
@@ -200,21 +175,21 @@ object DocumentationGenerator extends App {
       case (post, renderedPost) =>
         val fixedLinks = if (context.nonEmpty) FeedFormatter.makeAbsoluteLinks(renderedPost, context) else renderedPost
         val page = eu.dcsi.website.part.html.blogPost(post, fixedLinks)
-        savePage(s"blogPost ${post.id}",s"blog/${post.id}.html", page, sitemapPriority = "0.8")
+        savePage(s"blogPost ${post.id}", s"blog/${post.id}.html", page, sitemapPriority = "0.8")
     } ++ blogPostsByTag.map {
       // Tag pages
       case (tag, posts) =>
-        val postSummaries = posts.flatMap{ post =>
+        val postSummaries = posts.flatMap { post =>
           blogPostSummaries.find(_._1.id == post.id)
         }
-        savePage(s"blogPost tag=$tag",s"blog/tags/$tag.html", html.blog(s"Blog posts tagged with $tag", renderRecent = true, postSummaries))
+        savePage(s"blogPost tag=$tag", s"blog/tags/$tag.html", html.blog(s"Blog posts tagged with $tag", renderRecent = true, postSummaries))
     } :+ {
       // Index page
-      savePage(s"blogPostIndex2","blog2/index.html", html.blog("Blog2", renderRecent = false, blogPostSummaries.take(10)),
+      savePage(s"blogPostIndex2", "blog2/index.html", html.blog("Blog2", renderRecent = false, blogPostSummaries.take(10)),
         sitemapPriority = "0.5")
     } :+ {
       // Index page
-      savePage(s"blogPostIndex","blog/index.html", eu.dcsi.website.html.blog("Blog", renderRecent = false, blogPostSummaries.take(10)),
+      savePage(s"blogPostIndex", "blog/index.html", eu.dcsi.website.html.blog("Blog", renderRecent = false, blogPostSummaries.take(10)),
         sitemapPriority = "0.5")
     } :+ {
       // Feed
@@ -227,21 +202,20 @@ object DocumentationGenerator extends App {
     }
   }
 
-  require(docsDir.listFiles() !=null,s"${docsDir.getAbsolutePath} should return files")
+  //require(docsDir.listFiles() !=null,s"${docsDir.getAbsolutePath} should return files")
   // Discover versions
-  val versions = docsDir.listFiles().toSeq.map { versionDir =>
+  val versions = Option(docsDir.listFiles()).map(_.toSeq).getOrElse(Seq()).map { versionDir =>
     // Discover languages
     val languages = versionDir.listFiles().toSeq.map { languageDir =>
       val indexJson = new File(languageDir, "index.json")
       val toc = Json.parse(Files.readAllBytes(indexJson.toPath)).as[TOC]
       LanguageVersion(versionDir.getName, languageDir.getName, languageDir, toc)
-    }.sortWith( _.language < _.language)  // enforce consistent ordering of languages
+    }.sortWith(_.language < _.language) // enforce consistent ordering of languages
     //sortWith( _.language < _.language)  will list 'Java' before 'Scala'. Change
     // sorting function or reimplement for more elaborate scenarios.
 
     Version(versionDir.getName, languages)
   }.sortBy(_.name) // Will need a better sort in future
-
 
   val currentVersion = versions.find(_.name == currentDocsVersion)
 
@@ -271,7 +245,7 @@ object DocumentationGenerator extends App {
             case Some(parent) =>
               parent.children.dropWhile(_._1 != ctx.title).drop(1).headOption match {
                 case Some((title, url)) => Seq(NavLink(title, url, false))
-                case None => getNext(parent)
+                case None               => getNext(parent)
               }
           }
         case Some(urls) =>
@@ -325,9 +299,9 @@ object DocumentationGenerator extends App {
   }
 
   val generated = templatePages.map((generatePage _).tupled) ++
-    Seq(savePage("docIndex","documentation/index.html", html.documentationIndex(stableVersions, previewVersions, oldVersions, versions, communityContents))) ++
+    Seq(savePage("docIndex", "documentation/index.html", html.documentationIndex(stableVersions, previewVersions, oldVersions, versions, communityContents))) ++
     versions.map { version =>
-      savePage(s"docVersion $version",s"documentation/${version.name}/index.html", html.documentationVersionIndex(version), includeInSitemap = false)
+      savePage(s"docVersion $version", s"documentation/${version.name}/index.html", html.documentationVersionIndex(version), includeInSitemap = false)
     } ++
     renderMarkdownFiles("", markdownDir) ++
     blogPostFiles ++
@@ -368,51 +342,53 @@ object DocumentationGenerator extends App {
 case class OutputFile(file: File, sitemapUrl: String, includeInSitemap: Boolean, sitemapPriority: String)
 
 /**
-  * The context that gets passed to every page in the documentation.
-  *
-  * @param currentLagomVersion The current version of Lagom.
-  * @param currentDocsVersion The current version of the docs.
-  */
+ * The context that gets passed to every page in the documentation.
+ *
+ * @param currentLagomVersion The current version of Lagom.
+ * @param currentDocsVersion The current version of the docs.
+ */
 case class LagomContext(baseUrl: String, path: String, currentLagomVersion: String, currentDocsVersion: String,
-                        blogSummary: BlogSummary, assetFingerPrint: String)
+                        blogSummary: BlogSummary, assetFingerPrint: String){
+  implicit def route = Site.route
+}
 
 case class VersionSummary(name: String, title: String)
 
-case class CommunityContent(description:String, href:String, hrefTitle:String)
+case class CommunityContent(description: String, href: String, hrefTitle: String)
 
 case class Version(name: String, languages: Seq[LanguageVersion]) {
   def versionFor(language: String): Option[LanguageVersion] = languages.find(_.language == language)
 }
 
 /**
-  * A version of the docs for a language.
-  *
-  * @param name The name of the version.
-  * @param language The name of the language.
-  * @param file The path of the language version.
-  * @param toc The table of contents for the version.
-  */
+ * A version of the docs for a language.
+ *
+ * @param name The name of the version.
+ * @param language The name of the language.
+ * @param file The path of the language version.
+ * @param toc The table of contents for the version.
+ */
 case class LanguageVersion(name: String, language: String, file: File, toc: TOC) {
   def pageFor(path: String) = VersionPage(name, toc.mappings.get(path).isDefined)
 }
 
 /**
-  * A link to another version from a specific page. Used when rendering the drop down to another version, if the page
-  * exists in the other version we render a link to the page, otherwise, we render a link to the index.
-  *
-  * @param name The name of the version.
-  * @param exists Whether the specific page exists in that version.
-  */
+ * A link to another version from a specific page. Used when rendering the drop down to another version, if the page
+ * exists in the other version we render a link to the page, otherwise, we render a link to the index.
+ *
+ * @param name The name of the version.
+ * @param exists Whether the specific page exists in that version.
+ */
 case class VersionPage(name: String, exists: Boolean)
 
 /**
-  * A link to a page
-  */
+ * A link to a page
+ */
 case class NavLink(title: String, url: String, current: Boolean)
 
 /**
-  * A documentation section
-  */
+ * A documentation section
+ */
 case class Section(title: String, url: String, children: Seq[NavLink])
 
 package object html {
