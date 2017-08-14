@@ -6,9 +6,11 @@ import play.twirl.api.Html
 import eu.dcsi.sekyll.docs._
 
 object Site {
+  /**Use the routes in your code for statically checked links.*/
   object route{
     val contact = "contact"
     val home = "index.html"
+    val about = "about"
   }
   
   //Yaml.parse(frontMatter)
@@ -22,7 +24,7 @@ object Site {
     "get-started-java-maven.html" -> html.getstartedjavamaven,
     "get-started-scala.html" -> html.getstartedscala,
 
-    "about.html" -> eu.dcsi.website.html.about,
+    route.about -> eu.dcsi.website.html.about,
     route.contact -> eu.dcsi.website.html.contact,
     "blog-home-1.html" -> eu.dcsi.website.html.blogHome1,
     "blog-home-2.html" -> eu.dcsi.website.html.blogHome2,

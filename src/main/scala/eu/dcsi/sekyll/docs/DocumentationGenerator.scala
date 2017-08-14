@@ -349,7 +349,8 @@ case class OutputFile(file: File, sitemapUrl: String, includeInSitemap: Boolean,
  */
 case class LagomContext(baseUrl: String, path: String, currentLagomVersion: String, currentDocsVersion: String,
                         blogSummary: BlogSummary, assetFingerPrint: String){
-  implicit def route = Site.route
+  def route = Site.route
+  def route(image:String) = s"images/$image"
 }
 
 case class VersionSummary(name: String, title: String)
