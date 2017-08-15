@@ -1,7 +1,7 @@
 @import eu.dcsi.sekyll.docs.svg.html._
-@import org.raisercostin.sekyll.Site
+@import org.raisercostin.sekyll._
 
-@(title: Option[String], canonical: Option[String] = None)(header: Html = HtmlFormat.empty)(footer: Html = HtmlFormat.empty)(content: Html)(implicit context: Site)
+@(title: Option[String], canonical: Option[String] = None)(header: Html = HtmlFormat.empty)(footer: Html = HtmlFormat.empty)(content: Html)(implicit site: Site)
 <!DOCTYPE html>
 
 <html lang="en-US" class="css3transitions">
@@ -118,8 +118,8 @@ var s_gb = {"theme_css":"http:\/\/dcsi.labs.roweb.ro\/wp-content\/themes\/the-si
 	<link rel="stylesheet" type='text/css' href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.css">	
 	<link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Open+Sans'>
 	<link href='http://fonts.googleapis.com/css?family=Fenix' rel='stylesheet' type='text/css'>
-	<script src="@context.path/js/all-@{context.assetFingerPrint}.js"></script>
-    @*<script src="@context.path/@context.assetFingerPrint-all-scripts-concat.js"></script>*@
+	<script src="@site.path/js/all-@{site.assetFingerPrint}.js"></script>
+    @*<script src="@site.path/@site.assetFingerPrint-all-scripts-concat.js"></script>*@
 </head>
 
 <!-- End of Header -->

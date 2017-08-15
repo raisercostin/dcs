@@ -1,11 +1,11 @@
 @import com.lightbend.docs.Context
 @import eu.dcsi.sekyll.docs.VersionPage
 @import eu.dcsi.sekyll.docs.Section
-@import org.raisercostin.sekyll.Site
+@import org.raisercostin.sekyll._
 @import eu.dcsi.sekyll.docs.NavLink
 
 @(path: String, content: Html, context: Context, language: String, version: String, versions: Seq[VersionPage], nav: List[Section],
-        canonical: Option[String], nextLinks: Seq[NavLink])(implicit ctx: Site)
+        canonical: Option[String], nextLinks: Seq[NavLink])(implicit site: Site)
 
 @main(Some(context.title), canonical) { @* Header *@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css" />
@@ -81,11 +81,11 @@
                     <label for="docs-version">Version:</label>
                     <select id="docs-version">
                     @for(v <- versions) {
-                        <option value="@ctx.path/documentation/@v.name/@language@if(v.exists){/@path}else{/Home.html}"@if(v.name == version){ selected="selected"}>@v.name</option>
+                        <option value="@site.path/documentation/@v.name/@language@if(v.exists){/@path}else{/Home.html}"@if(v.name == version){ selected="selected"}>@v.name</option>
                     }
                     </select>
 
-                    <a href="@ctx.path/documentation/@version/@language/api/index.html" class="api-docs">API Documentation</a>
+                    <a href="@site.path/documentation/@version/@language/api/index.html" class="api-docs">API Documentation</a>
 
                     @for(section <- nav.reverse) {
                         <h3>@section.title</h3>

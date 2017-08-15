@@ -1,8 +1,8 @@
-@import org.raisercostin.sekyll.Site
+@import org.raisercostin.sekyll._
 
-@()(implicit context: Site)
+@()(implicit site: Site)
 
-<a href="@context.path/get-started.html">Try Lagom</a>
-<a href="@context.path/documentation/">Documentation</a>
-<a href="@context.path/get-involved.html">Get Involved</a>
-<a href="@context.path/blog/">Blog</a>
+<a href="@site.path/get-started.html">Try Lagom</a>
+<a href="@site.path/documentation/">Documentation</a>
+<a href="@site.path/get-involved.html">Get Involved</a>
+<a href="@site.path/blog/">Blog</a>

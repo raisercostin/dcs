@@ -8,9 +8,9 @@ import play.twirl.api.Html
 import org.raisercostin.sekyll.Site
 
 object FeedFormatter {
-  def atom(posts: Seq[(BlogPost, Html)])(implicit context: Site): Elem = {
+  def atom(posts: Seq[(BlogPost, Html)])(implicit site: Site): Elem = {
     val blogUpdate = ISODateTimeFormat.dateTime.print(posts.head._1.date)
-    val blogUrl = context.baseUrl + "/blog"
+    val blogUrl = site.baseUrl + "/blog"
     val year = DateTime.now().getYear
 
     <feed xmlns="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
@@ -42,7 +42,7 @@ object FeedFormatter {
           <id>{postUrl}</id>
           <updated>{postDate}</updated>
           <published>{postDate}</published>
-          <content type="html">{PCData(makeAbsoluteLinks(content, context.baseUrl).body)}</content>
+          <content type="html">{PCData(makeAbsoluteLinks(content, site.baseUrl).body)}</content>
           <dc:date>{postDate}</dc:date>
         </entry>
     }}

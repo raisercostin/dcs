@@ -1,12 +1,12 @@
 @import eu.dcsi.sekyll.docs.BlogPost
-@import org.raisercostin.sekyll.Site
+@import org.raisercostin.sekyll._
 @import eu.dcsi.website._
 @import eu.dcsi.sekyll.docs.html.encodePathSegment
 
-@(title: String, renderRecent: Boolean, posts: Seq[(BlogPost, Html)])(implicit context: Site)
+@(title: String, renderRecent: Boolean, posts: Seq[(BlogPost, Html)])(implicit site: Site)
 
 @part.html.main(Some(title)){
-    <link href="@context.path/blog/atom.xml" type="application/atom+xml" rel="alternate" title="ATOM Feed" />
+    <link href="@site.path/blog/atom.xml" type="application/atom+xml" rel="alternate" title="ATOM Feed" />
 }() {
     <!-- Page Content -->
     <article class="container">
@@ -30,17 +30,17 @@
                 <div class="card mb-4">
                     @*<img class="card-img-top img-fluid" src="http://placehold.it/750x300" alt="Card image cap">*@
                     <div class="card-block">
-                        <h2 class="card-title"><a href="@context.path/blog/@{blogPost.id}.html">@blogPost.title</a></h2>
+                        <h2 class="card-title"><a href="@site.path/blog/@{blogPost.id}.html">@blogPost.title</a></h2>
                         <p class="card-text">@summary</p>
-                        <a href="@context.path/blog/@{blogPost.id}.html" class="btn btn-primary">Read More &rarr;</a>
+                        <a href="@site.path/blog/@{blogPost.id}.html" class="btn btn-primary">Read More &rarr;</a>
                     </div>
                     <div class="card-footer text-muted">
 	                    @*<div class="blog-meta-tags">*@
 	                    <div class="pull-right">
 	                    @if(blogPost.tags.nonEmpty) {
-	                        <img src="@context.path/images/entypo/purple/entypo_tag.svg" class="svg-icon" style="width:1em;"/>
+	                        <img src="@site.path/images/entypo/purple/entypo_tag.svg" class="svg-icon" style="width:1em;"/>
 	                        @for(tag <- blogPost.tags) {
-	                            <span class="blog-tag"><a href="@context.path/blog/tags/@{encodePathSegment(tag)}.html">@tag</a></span>
+	                            <span class="blog-tag"><a href="@site.path/blog/tags/@{encodePathSegment(tag)}.html">@tag</a></span>
 	                        }
 	                    }
 	                    </div>
@@ -79,8 +79,8 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <ul class="list-unstyled mb-0">
-							    @for((tag, count) <- context.blogSummary.tags) {
-							        <li><a href="@context.path/blog/tags/@{encodePathSegment(tag)}.html" data-count="@count">@tag</a></li>
+							    @for((tag, count) <- site.blogSummary.tags) {
+							        <li><a href="@site.path/blog/tags/@{encodePathSegment(tag)}.html" data-count="@count">@tag</a></li>
 							    }
                                 </ul>
                             </div>
@@ -109,7 +109,7 @@
 	                <div class="card my-4">
 	                    <h5 class="card-header">Recent Posts</h5>
 	                    <div class="card-block">
-				        @for(blogPost <- context.blogSummary.recent) {
+				        @for(blogPost <- site.blogSummary.recent) {
 				            <div class="blog-meta">
 				                <div class="blog-author-image">
 				                    <a href="@blogPost.author.url">
@@ -117,7 +117,7 @@
 				                    </a>
 				                </div>
 				                <div class="blog-meta-details">
-				                    <a href="@context.path/blog/@{blogPost.id}.html">@blogPost.title</a>
+				                    <a href="@site.path/blog/@{blogPost.id}.html">@blogPost.title</a>
 				                    <br/>
 				                    @blogPost.date.toString("MMMM d, yyyy")
 				                </div>

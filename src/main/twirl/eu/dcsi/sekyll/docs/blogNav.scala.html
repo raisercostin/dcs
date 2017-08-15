@@ -1,12 +1,12 @@
-@import org.raisercostin.sekyll.Site
+@import org.raisercostin.sekyll._
 
-@(renderRecent: Boolean = true)(implicit context: Site)
+@(renderRecent: Boolean = true)(implicit site: Site)
 
 <nav class="side-menu">
     @if(renderRecent) {
         <h3>Recent posts</h3>
 
-        @for(blogPost <- context.blogSummary.recent) {
+        @for(blogPost <- site.blogSummary.recent) {
             <div class="blog-meta">
                 <div class="blog-author-image">
                     <a href="@blogPost.author.url">
@@ -14,7 +14,7 @@
                     </a>
                 </div>
                 <div class="blog-meta-details">
-                    <a href="@context.path/blog/@{blogPost.id}.html">@blogPost.title</a>
+                    <a href="@site.path/blog/@{blogPost.id}.html">@blogPost.title</a>
                     <br/>
                     @blogPost.date.toString("MMMM d, yyyy")
                 </div>
@@ -26,8 +26,8 @@
     <h3>Tags</h3>
 
     <div class="blog-tag-box">
-    @for((tag, count) <- context.blogSummary.tags) {
-        <a href="@context.path/blog/tags/@{encodePathSegment(tag)}.html" data-count="@count">@tag</a>
+    @for((tag, count) <- site.blogSummary.tags) {
+        <a href="@site.path/blog/tags/@{encodePathSegment(tag)}.html" data-count="@count">@tag</a>
     }
     </div>
 

@@ -1,10 +1,10 @@
 @import eu.dcsi.sekyll.docs.BlogPost
-@import org.raisercostin.sekyll.Site
+@import org.raisercostin.sekyll._
 
-@(title: String, renderRecent: Boolean, posts: Seq[(BlogPost, Html)])(implicit context: Site)
+@(title: String, renderRecent: Boolean, posts: Seq[(BlogPost, Html)])(implicit site: Site)
 
 @main(Some(title)){
-    <link href="@context.path/blog/atom.xml" type="application/atom+xml" rel="alternate" title="ATOM Feed" />
+    <link href="@site.path/blog/atom.xml" type="application/atom+xml" rel="alternate" title="ATOM Feed" />
 }() {
 
     <header class="fw-wrapper lgm-purple page-title">
@@ -35,20 +35,20 @@
                         <div class="medium-7 columns">
                             <div class="blog-meta-tags">
                             @if(blogPost.tags.nonEmpty) {
-                                <img src="@context.path/images/entypo/purple/entypo_tag.svg" class="svg-icon"/>
+                                <img src="@site.path/images/entypo/purple/entypo_tag.svg" class="svg-icon"/>
                                 @for(tag <- blogPost.tags) {
-                                    <span class="blog-tag"><a href="@context.path/blog/tags/@{encodePathSegment(tag)}.html">@tag</a></span>
+                                    <span class="blog-tag"><a href="@site.path/blog/tags/@{encodePathSegment(tag)}.html">@tag</a></span>
                                 }
                             }
                             </div>
                         </div>
                     </div>
 
-                    <h1><a href="@context.path/blog/@{blogPost.id}.html">@blogPost.title</a></h1>
+                    <h1><a href="@site.path/blog/@{blogPost.id}.html">@blogPost.title</a></h1>
 
                     @summary
 
-                    <a href="@context.path/blog/@{blogPost.id}.html" class="btn">Read more...</a>
+                    <a href="@site.path/blog/@{blogPost.id}.html" class="btn">Read more...</a>
 
                     <hr/>
                 }

@@ -1,6 +1,7 @@
 @import eu.dcsi.sekyll.docs.BlogSummary
+@import org.raisercostin.sekyll._
 
-@(title: Option[String], canonical: Option[String] = None)(header: Html = HtmlFormat.empty)(footer: Html = HtmlFormat.empty)(content: Html)(implicit site: org.raisercostin.sekyll.Site)
+@(title: Option[String], canonical: Option[String] = None)(header: Html = HtmlFormat.empty)(footer: Html = HtmlFormat.empty)(content: Html)(implicit site: Site)
 <!DOCTYPE html>
 <html lang="en">
 
