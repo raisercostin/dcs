@@ -5,9 +5,10 @@ import org.joda.time.DateTime
 import scala.xml.{Elem, PCData}
 import org.joda.time.format.ISODateTimeFormat
 import play.twirl.api.Html
+import org.raisercostin.sekyll.Site
 
 object FeedFormatter {
-  def atom(posts: Seq[(BlogPost, Html)])(implicit context: LagomContext): Elem = {
+  def atom(posts: Seq[(BlogPost, Html)])(implicit context: Site): Elem = {
     val blogUpdate = ISODateTimeFormat.dateTime.print(posts.head._1.date)
     val blogUrl = context.baseUrl + "/blog"
     val year = DateTime.now().getYear

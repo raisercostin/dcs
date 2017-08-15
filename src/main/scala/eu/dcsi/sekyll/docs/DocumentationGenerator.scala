@@ -2,6 +2,7 @@ package eu.dcsi.sekyll.docs
 
 import java.io.File
 import java.nio.file.{ Files, StandardCopyOption }
+import org.raisercostin.sekyll._
 
 import com.lightbend.docs.{ Context, TOC }
 import org.pegdown.{ Extensions, LinkRenderer, PegDownProcessor, VerbatimSerializer }
@@ -80,8 +81,6 @@ object DocumentationGenerator extends App {
   //case None => ("https://www.lagomframework.com", "")
   //}
 
-  // Templated pages to generate
-  val templatePages: Seq[(String, Template1[LagomContext, Html])] = Site.pages
   // Redirects
   // Since this is a static site, and GitHub doesn't support redirects, we generate pages that use HTML redirects.
   val redirects: Seq[(String, String)] = Seq(
@@ -115,11 +114,11 @@ object DocumentationGenerator extends App {
     })
   }
 
-  implicit val lagomContext = LagomContext(baseUrl, context, currentLagomVersion, currentDocsVersion,
+  implicit val site = Site(baseUrl, context, currentLagomVersion, currentDocsVersion,
     blogSummary, assetFingerPrint)
 
-  def generatePage(name: String, template: Template1[LagomContext, Html]): OutputFile = {
-    savePage(s"generatePage $name", name, template.render(lagomContext))
+  def generatePage(name: String, template: Template1[Site, Html]): OutputFile = {
+    savePage(s"generatePage $name", name, template.render(site))
   }
 
   def generateRedirect(from: String, to: String): OutputFile = {
@@ -299,6 +298,9 @@ object DocumentationGenerator extends App {
     version -> renderDocVersion(version)
   }
 
+  // Templated pages to generate
+  val templatePages: Seq[(String, Template1[Site, Html])] = site.pages
+
   val generated = templatePages.map((generatePage _).tupled) ++
     Seq(savePage("docIndex", "documentation/index.html", html.documentationIndex(stableVersions, previewVersions, oldVersions, versions, communityContents))) ++
     versions.map { version =>
@@ -341,19 +343,6 @@ object DocumentationGenerator extends App {
 }
 
 case class OutputFile(file: File, sitemapUrl: String, includeInSitemap: Boolean, sitemapPriority: String)
-
-/**
- * The context that gets passed to every page in the documentation.
- *
- * @param currentLagomVersion The current version of Lagom.
- * @param currentDocsVersion The current version of the docs.
- */
-case class LagomContext(baseUrl: String, path: String, currentLagomVersion: String, currentDocsVersion: String,
-                        blogSummary: BlogSummary, assetFingerPrint: String){
-  def route = Site.route
-  def route(image:String) = Site.route(image)
-  def customers:Seq[Customer] = Site.documents[Customer]("customers")
-}
 
 case class VersionSummary(name: String, title: String)
 

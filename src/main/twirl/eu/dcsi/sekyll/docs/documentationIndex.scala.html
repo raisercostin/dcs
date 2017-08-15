@@ -1,9 +1,9 @@
 @import eu.dcsi.sekyll.docs.VersionSummary
 @import eu.dcsi.sekyll.docs.CommunityContent
 @import eu.dcsi.sekyll.docs.Version
-@import eu.dcsi.sekyll.docs.LagomContext
+@import org.raisercostin.sekyll.Site
 
-@(stableVersions: Seq[VersionSummary], previewVersions: Seq[VersionSummary], oldVersions: Seq[VersionSummary], versions: Seq[Version], communityContents: Seq[CommunityContent])(implicit ctx: LagomContext)
+@(stableVersions: Seq[VersionSummary], previewVersions: Seq[VersionSummary], oldVersions: Seq[VersionSummary], versions: Seq[Version], communityContents: Seq[CommunityContent])(implicit ctx: Site)
 
 @toTitleCase(s: String) = {@s.head.toUpper@s.tail}
 

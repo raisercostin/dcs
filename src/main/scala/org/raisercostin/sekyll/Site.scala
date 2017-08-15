@@ -1,14 +1,27 @@
 package org.raisercostin.sekyll
 
 import play.twirl.api.Template1
-import eu.dcsi.sekyll.docs.LagomContext
 import play.twirl.api.Html
 import eu.dcsi.sekyll.docs._
 
 case class Customer(image:String)
 
+/**
+ * The context that gets passed to every page in the documentation.
+ *
+ * @param currentLagomVersion The current version of Lagom.
+ * @param currentDocsVersion The current version of the docs.
+ */
+case class Site(baseUrl: String, path: String, currentLagomVersion: String, currentDocsVersion: String,
+                        blogSummary: BlogSummary, assetFingerPrint: String){
+  def route = RawSite.route
+  def route(image:String) = RawSite.route(image)
+  def customers:Seq[Customer] = RawSite.documents[Customer]("customers")
+  def pages = RawSite.pages
+}
 
-object Site {
+
+object RawSite {
   /**Use the routes in your code for statically checked links.*/
   object route{
     val contact = "contact"
@@ -23,7 +36,7 @@ object Site {
   
   //Yaml.parse(frontMatter)
   // Templated pages to generate
-  val pages: Seq[(String, Template1[LagomContext, Html])] = Seq(
+  val pages: Seq[(String, Template1[Site, Html])] = Seq(
     "index2.html" -> html.index,
     "get-involved.html" -> html.getinvolved,
     "get-started.html" -> html.getstarted,
@@ -39,7 +52,7 @@ object Site {
     //"blog-post.html" -> eu.dcsi.website.html.blogPost,
     "faq.html" -> eu.dcsi.website.html.faq,
     "full-width.html" -> eu.dcsi.website.html.fullWidth,
-    Site.route.home -> eu.dcsi.website.html.index,
+    route.home -> eu.dcsi.website.html.index,
     "404.html" -> eu.dcsi.website.html.page404,
     "portfolio-1-col.html" -> eu.dcsi.website.html.portfolio1col,
     "portfolio-2-col.html" -> eu.dcsi.website.html.portfolio2col,

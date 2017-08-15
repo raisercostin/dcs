@@ -1,9 +1,9 @@
 @import eu.dcsi.sekyll.docs.BlogPost
-@import eu.dcsi.sekyll.docs.LagomContext
+@import org.raisercostin.sekyll.Site
 @import eu.dcsi.website._
 @import eu.dcsi.sekyll.docs.html.encodePathSegment
 
-@(title: String, renderRecent: Boolean, posts: Seq[(BlogPost, Html)])(implicit context: LagomContext)
+@(title: String, renderRecent: Boolean, posts: Seq[(BlogPost, Html)])(implicit context: Site)
 
 @part.html.main(Some(title)){
     <link href="@context.path/blog/atom.xml" type="application/atom+xml" rel="alternate" title="ATOM Feed" />
