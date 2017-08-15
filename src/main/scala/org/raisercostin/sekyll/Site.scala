@@ -5,6 +5,9 @@ import eu.dcsi.sekyll.docs.LagomContext
 import play.twirl.api.Html
 import eu.dcsi.sekyll.docs._
 
+case class Customer(image:String)
+
+
 object Site {
   /**Use the routes in your code for statically checked links.*/
   object route{
@@ -12,6 +15,11 @@ object Site {
     val home = "index.html"
     val about = "about"
   }
+  
+  def documents[T](collection:String):Seq[T] =
+    Seq(Customer(route("oracle.png")),Customer(route("gothaer.png")),Customer(route("DFPRADM.png")),Customer(route("EuroCenterBank.png"))).asInstanceOf[Seq[T]]
+  
+  def route(image:String):String = s"images/$image"
   
   //Yaml.parse(frontMatter)
   // Templated pages to generate

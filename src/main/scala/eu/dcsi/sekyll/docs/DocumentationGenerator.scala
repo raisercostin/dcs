@@ -15,6 +15,7 @@ import scala.collection.JavaConverters._
 import scala.xml.XML
 import org.raisercostin.sekyll.Site
 import org.raisercostin.jedi.Locations
+import org.raisercostin.sekyll.Customer
 
 object Main {
   def main(args: Array[String]): Unit = {
@@ -350,7 +351,8 @@ case class OutputFile(file: File, sitemapUrl: String, includeInSitemap: Boolean,
 case class LagomContext(baseUrl: String, path: String, currentLagomVersion: String, currentDocsVersion: String,
                         blogSummary: BlogSummary, assetFingerPrint: String){
   def route = Site.route
-  def route(image:String) = s"images/$image"
+  def route(image:String) = Site.route(image)
+  def customers:Seq[Customer] = Site.documents[Customer]("customers")
 }
 
 case class VersionSummary(name: String, title: String)
