@@ -2,7 +2,7 @@ import java.io.Closeable
 
 import scala.concurrent.Await
 
-lazy val `sekyll` = (project in file("."))
+lazy val `dcs` = (project in file("."))
   .enablePlugins(SbtTwirl, SbtWeb)
 
 scalaVersion := "2.11.7"
@@ -10,7 +10,7 @@ scalaVersion := "2.11.7"
 JsEngineKeys.engineType := JsEngineKeys.EngineType.Node
 WebKeys.stagingDirectory := file("docs")
 cleanFiles <+= baseDirectory { base => base / "docs" }
-
+resolvers += "raisercostin repository" at "http://dl.bintray.com/raisercostin/maven"
 libraryDependencies ++= Seq(
 /*
     "org.webjars" % "normalize.css" % "3.0.2",
@@ -25,6 +25,7 @@ libraryDependencies ++= Seq(
         ,"org.webjars.npm" % "popper.js" % "1.11.1"
         ,"org.webjars" % "tether" % "1.4.0"
     ,"org.webjars" % "jquery" % "2.2.1" //3.2.1
+    ,"org.raisercostin" %% "jedi-io" % "0.55"
   
     ,"com.lightbend.markdown" %% "lightbend-markdown-server" % "1.5.2"
     ,"org.yaml" % "snakeyaml" % "1.12"

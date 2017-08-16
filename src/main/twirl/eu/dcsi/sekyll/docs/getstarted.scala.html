@@ -1,15 +1,15 @@
 @import eu.dcsi.sekyll.docs.svg.html._
-@import eu.dcsi.sekyll.docs.LagomContext
+@import org.raisercostin.sekyll._
 
-@(implicit context: LagomContext)
+@(implicit site: Site)
 
 @main(Some("Try Now"))()() {
     <div class="fw-wrapper lgm-purple hero-banner">
         <div class="row">
             <div class="small-12 columns">
-                <a href="@context.path/" class="logo"><img src="@context.path/images/logos/lagom-reverse.svg"></a>
-                <h1>Try Lagom @context.currentLagomVersion today</h1>
-                <a href="@context.path/changelog.html">Change log</a>
+                <a href="@site.path/" class="logo"><img src="@site.path/images/logos/lagom-reverse.svg"></a>
+                <h1>Try Lagom @site.currentLagomVersion today</h1>
+                <a href="@site.path/changelog.html">Change log</a>
             </div>
         </div>
     </div>
@@ -44,8 +44,8 @@
                          <div class="small-12 columns">
                     <div class="get-started-buttons">
                       <h5 align="center">Choose your language:</h5>
-                        <a class="lagom-logo-button" href="@context.path/get-started-java.html">Java</a>
-                        <a class="lagom-logo-button" href="@context.path/get-started-scala.html">Scala</a>
+                        <a class="lagom-logo-button" href="@site.path/get-started-java.html">Java</a>
+                        <a class="lagom-logo-button" href="@site.path/get-started-scala.html">Scala</a>
                     </div>
                 </div>
             </div>

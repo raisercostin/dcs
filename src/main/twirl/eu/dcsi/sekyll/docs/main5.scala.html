@@ -1,7 +1,7 @@
 @import eu.dcsi.sekyll.docs.svg.html._
-@import eu.dcsi.sekyll.docs.LagomContext
+@import org.raisercostin.sekyll._
 
-@(title: Option[String], canonical: Option[String] = None)(header: Html = HtmlFormat.empty)(footer: Html = HtmlFormat.empty)(content: Html)(implicit context: LagomContext)
+@(title: Option[String], canonical: Option[String] = None)(header: Html = HtmlFormat.empty)(footer: Html = HtmlFormat.empty)(content: Html)(implicit site: Site)
 <!DOCTYPE html>
 <html class="noios">
     <head>
@@ -14,8 +14,8 @@
         }
         <meta name="viewport" content="width=device-width,maximum-scale=1"/>
         <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700" rel="stylesheet" type="text/css"/>
-		<link href="@context.path/css/all-@{context.assetFingerPrint}.css" rel="stylesheet" type="text/css">
-        @*<link rel="stylesheet" href="@context.path/@context.assetFingerPrint-all-styles-concat.css" type="text/css">*@
+		<link href="@site.path/css/all-@{site.assetFingerPrint}.css" rel="stylesheet" type="text/css">
+        @*<link rel="stylesheet" href="@site.path/@site.assetFingerPrint-all-styles-concat.css" type="text/css">*@
         @header
     </head>
     <body>
@@ -29,7 +29,7 @@
                         <button class="close-button" aria-label="Close menu" type="button" data-close>
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        <a href="@context.path/get-started.html">Try Lagom</a>
+                        <a href="@site.path/get-started.html">Try Lagom</a>
                         @sideNav()
                     </nav>
                 </div>
@@ -38,7 +38,7 @@
                         <div class="row">
                             <div class="small-12 columns">
                                 <button class="menu-icon hide-for-medium" type="button" data-open="offCanvasLeft" data-toggle="offCanvas"></button>
-                                <a class="logo" href="@context.path/">@lagomFullColor()</a>
+                                <a class="logo" href="@site.path/">@lagomFullColor()</a>
                                 <nav class="sections show-for-medium">
                                     @topNav()
                                 </nav>
@@ -49,13 +49,13 @@
                         <div class="row hide-for-medium">
                             <div class="small-12 columns">
                                 <button class="menu-icon" type="button" data-open="offCanvasLeft" data-toggle="offCanvas"></button>
-                                <a class="logo-for-small" href="@context.path/">@lagomReverse()</a>
+                                <a class="logo-for-small" href="@site.path/">@lagomReverse()</a>
                             </div>
                         </div>
                         <div class="row show-for-medium">
                             <div class="small-12 columns">
                                 <!-- social icons -->
-                                <a class="logo" href="@context.path/">@lagomReverse()</a>
+                                <a class="logo" href="@site.path/">@lagomReverse()</a>
                                 <nav class="social">
                                     <a href="//groups.google.com/forum/#!forum/lagom-framework"><span>Mailing list</span></a>
                                     <a href="//twitter.com/lagom"><span>Twitter</span></a>
@@ -99,9 +99,9 @@
                                 <div class="small-12 medium-6 large-3 columns">
                                     <h3>Lagom</h3>
                                     <ul class="no-bullet">
-                                        <li><a href="@context.path/get-started.html">Get started</a></li>
-                                        <li><a href="@context.path/blog">Blog</a></li>
-                                        <li><a href="@context.path/documentation/">Documentation</a></li>
+                                        <li><a href="@site.path/get-started.html">Get started</a></li>
+                                        <li><a href="@site.path/blog">Blog</a></li>
+                                        <li><a href="@site.path/documentation/">Documentation</a></li>
                                     </ul>
                                 </div>
                                 <div class="small-12 medium-6 large-3 columns">
@@ -116,7 +116,7 @@
                                     <h3>Code &amp; contribution</h3>
                                     <ul>
                                         <li><a href="//github.com/lagom/lagom/issues">Bug tracker <em>GitHub</em></a></li>
-                                        <li><a href="@context.path/get-involved.html">Get involved</a></li>
+                                        <li><a href="@site.path/get-involved.html">Get involved</a></li>
                                     </ul>
                                 </div>
                                 <div class="small-12 medium-6 large-3 columns">
@@ -131,10 +131,10 @@
                         <section class="fw-wrapper lgm-purple-dkr credits">
                             <div class="row">
                                 <div class="small-12 medium-3 columns">
-                                    <a href="@context.path/" class="logo"><img src="@context.path/images/logos/lagom-reverse.svg"></a>
+                                    <a href="@site.path/" class="logo"><img src="@site.path/images/logos/lagom-reverse.svg"></a>
                                 </div>
                                 <div class="small-12 medium-3 columns">
-                                    <a href="//lightbend.com" class="partner"><img src="@context.path/images/logos/lightbend-reverse.svg"></a>
+                                    <a href="//lightbend.com" class="partner"><img src="@site.path/images/logos/lightbend-reverse.svg"></a>
                                 </div>
                                 <div class="small-12 medium-6 columns">
                                     <p>Lagom is released under the Apache 2 License</p>
@@ -149,8 +149,8 @@
         </div>
 	*@
     </body>
-	<script src="@context.path/js/all-@{context.assetFingerPrint}.js"></script>
-    @*<script src="@context.path/@context.assetFingerPrint-all-scripts-concat.js"></script>*@
+	<script src="@site.path/js/all-@{site.assetFingerPrint}.js"></script>
+    @*<script src="@site.path/@site.assetFingerPrint-all-scripts-concat.js"></script>*@
     @* Footer needs to be before GA, so that page experiments load first which ensure that GA can track them *@
     @footer
     <script>

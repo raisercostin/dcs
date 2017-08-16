@@ -1,5 +1,5 @@
 //EclipseKeys.createSrc := EclipseCreateSrc.Default + EclipseCreateSrc.Resource
-EclipseKeys.createSrc := EclipseCreateSrc.All
+//EclipseKeys.createSrc := EclipseCreateSrc.All
 EclipseKeys.withSource := true
 EclipseKeys.eclipseOutput := Some("target2/eclipse")
 unmanagedSourceDirectories in Compile := (scalaSource in Compile).value :: Nil

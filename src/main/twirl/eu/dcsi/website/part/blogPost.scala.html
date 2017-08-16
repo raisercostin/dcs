@@ -1,19 +1,19 @@
 @import eu.dcsi.sekyll.docs.BlogSummary
 @import eu.dcsi.sekyll.docs.BlogPost
-@import eu.dcsi.sekyll.docs.LagomContext
+@import org.raisercostin.sekyll._
 @import eu.dcsi.website._
 
-@(blogPost: BlogPost, content: Html)(implicit context: LagomContext)
+@(blogPost: BlogPost, content: Html)(implicit site: Site)
 
 @part.html.main(Some(blogPost.title)){
 	 @* head *@
-    <link href="@context.path/blog/atom.xml" type="application/atom+xml" rel="home" title="ATOM Feed" />
+    <link href="@site.path/blog/atom.xml" type="application/atom+xml" rel="home" title="ATOM Feed" />
 }{
 	@* footer *@
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-57a0eb1ac33f75f8"></script>
     <script>
         var disqus_config = function () {
-            this.page.url = "@{context.baseUrl}/blog/@{blogPost.id}.html";
+            this.page.url = "@{site.baseUrl}/blog/@{blogPost.id}.html";
             this.page.identifier = "@blogPost.id";
             this.page.title = "@{Html(JavaScriptFormat.escape(blogPost.title).body)}";
         };
@@ -37,7 +37,7 @@
 
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="index.html">Home</a>
+                <a href="@{site.route.home}">Home</a>
             </li>
             <li class="breadcrumb-item active">@blogPost.title</li>
         </ol>

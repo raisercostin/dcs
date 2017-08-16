@@ -2,6 +2,7 @@ package eu.dcsi.sekyll.docs
 
 import java.io.File
 import java.nio.file.{Files, StandardCopyOption}
+import org.raisercostin.sekyll._
 
 import com.lightbend.docs.{Context, TOC}
 import org.pegdown.{Extensions, LinkRenderer, PegDownProcessor, VerbatimSerializer}
@@ -13,6 +14,10 @@ import play.utils.UriEncoding
 
 import scala.collection.JavaConverters._
 import scala.xml.XML
+import org.raisercostin.sekyll.Site
+import org.raisercostin.jedi.Locations
+import org.raisercostin.sekyll.Customer
+
 object Main {
   def main(args: Array[String]): Unit = {
     DocumentationGenerator.main(args)
@@ -33,17 +38,14 @@ object DocumentationGenerator extends App {
   // This impacts what gets displayed on the main documentation index.
   val stableVersions = Seq(
     VersionSummary("1.3.x", s"Lagom $currentLagomVersion (current stable release)"),
-    VersionSummary("1.2.x", s"Lagom 1.2.3 (previous stable release)")
-  )
+    VersionSummary("1.2.x", s"Lagom 1.2.3 (previous stable release)"))
 
   val previewVersions = Seq(
-    VersionSummary("1.4.x", s"Lagom 1.4.0-M1 (preview)")
-  )
+    VersionSummary("1.4.x", s"Lagom 1.4.0-M1 (preview)"))
 
   val oldVersions = Seq(
     VersionSummary("1.1.x", s"Lagom 1.1.0"),
-    VersionSummary("1.0.x", s"Lagom 1.0.0")
-  )
+    VersionSummary("1.0.x", s"Lagom 1.0.0"))
 
   val communityContents = Seq(
   //    CommunityContent("title", "href", "hrefTitle"),
@@ -64,9 +66,7 @@ object DocumentationGenerator extends App {
       "JWORKS TECH BLOG"),
     CommunityContent("Run a Lagom service standalone with Zookeeper",
       "https://thecoderwriter.wordpress.com/2016/09/24/run-a-lagom-service-standalone-with-zookeeper/",
-      "Coder's IO")
-
-  )
+      "Coder's IO"))
 
   // Set this to Some("your-github-account-name") if you want to deploy the docs to the gh-pages of your own fork
   // of the repo
@@ -81,35 +81,6 @@ object DocumentationGenerator extends App {
     //case None => ("https://www.lagomframework.com", "")
   //}
 
-  // Templated pages to generate
-  val templatePages: Seq[(String, Template1[LagomContext, Html])] = Seq(
-    "index2.html" -> html.index,
-    "get-involved.html" -> html.getinvolved,
-    "get-started.html" -> html.getstarted,
-    "get-started-java.html" -> html.getstartedjava,
-    "get-started-java-sbt.html" -> html.getstartedjavasbt,
-    "get-started-java-maven.html" -> html.getstartedjavamaven,
-    "get-started-scala.html" -> html.getstartedscala,
-
-    "about.html" -> eu.dcsi.website.html.about,
-    "contact.html" -> eu.dcsi.website.html.contact,
-    "blog-home-1.html" -> eu.dcsi.website.html.blogHome1,
-    "blog-home-2.html" -> eu.dcsi.website.html.blogHome2,
-    //"blog-post.html" -> eu.dcsi.website.html.blogPost,
-    "faq.html" -> eu.dcsi.website.html.faq,
-    "full-width.html" -> eu.dcsi.website.html.fullWidth,
-    "index.html" -> eu.dcsi.website.html.index,
-    "404.html" -> eu.dcsi.website.html.page404,
-    "portfolio-1-col.html" -> eu.dcsi.website.html.portfolio1col,
-    "portfolio-2-col.html" -> eu.dcsi.website.html.portfolio2col,
-    "portfolio-3-col.html" -> eu.dcsi.website.html.portfolio3col,
-    "portfolio-4-col.html" -> eu.dcsi.website.html.portfolio4col,
-    "portfolio-item.html" -> eu.dcsi.website.html.portfolioItem,
-    "pricing.html" -> eu.dcsi.website.html.pricing,
-    "services.html" -> eu.dcsi.website.html.services,
-    "sidebar.html" -> eu.dcsi.website.html.sidebar
-  )
-
   // Redirects
   // Since this is a static site, and GitHub doesn't support redirects, we generate pages that use HTML redirects.
   val redirects: Seq[(String, String)] = Seq(
@@ -117,8 +88,7 @@ object DocumentationGenerator extends App {
     "/documentation/java/index.html" -> s"$context/documentation/$currentDocsVersion/java/Home.html",
     // Redirect anyone heading to the old download page to the get started page
     "/download.html" -> "/get-started.html",
-    "blog-post.html" -> "/blog/article1.html"
-  )
+    "blog-post.html" -> "/blog/article1.html")
 
   val outputDir = new File(args(0))
   val docsDir = new File(args(1))
@@ -144,11 +114,11 @@ object DocumentationGenerator extends App {
     })
   }
 
-  implicit val lagomContext = LagomContext(baseUrl, context, currentLagomVersion, currentDocsVersion,
+  implicit val site = Site(baseUrl, context, currentLagomVersion, currentDocsVersion,
     blogSummary, assetFingerPrint)
 
-  def generatePage(name: String, template: Template1[LagomContext, Html]): OutputFile = {
-    savePage(s"generatePage $name", name, template.render(lagomContext))
+  def generatePage(name: String, template: Template1[Site, Html]): OutputFile = {
+    savePage(s"generatePage $name", name, template.render(site))
   }
 
   def generateRedirect(from: String, to: String): OutputFile = {
@@ -157,11 +127,16 @@ object DocumentationGenerator extends App {
 
   def savePage(why:String, name: String, rendered: Html, includeInSitemap: Boolean = true,
                sitemapPriority: String = "1.0"): OutputFile = {
-    val file = new File(outputDir, name)
-    file.getParentFile.mkdirs()
+    val finalName = if (Locations.file(name).extension.isEmpty)
+      name + "/index.html"
+    else
+      name
+    val file = new File(outputDir, finalName)
+    //file.getParentFile.mkdirs()
     Logger.info(f"savePage [${file.toPath}%-100s] reason: $why")
-    Files.write(file.toPath, rendered.body.getBytes("utf-8"))
-    val sitemapUrl = name match {
+    Locations.file(file).mkdirOnParentIfNecessary.writeContent(rendered.body)
+    //Files.write(file.toPath, rendered.body.getBytes("utf-8"))
+    val sitemapUrl = finalName match {
       case "index.html" => ""
       case index if index.endsWith("/index.html") => index.stripSuffix("/index.html")
       case other => other
@@ -227,9 +202,9 @@ object DocumentationGenerator extends App {
     }
   }
 
-  require(docsDir.listFiles() !=null,s"${docsDir.getAbsolutePath} should return files")
+  //require(docsDir.listFiles() !=null,s"${docsDir.getAbsolutePath} should return files")
   // Discover versions
-  val versions = docsDir.listFiles().toSeq.map { versionDir =>
+  val versions = Option(docsDir.listFiles()).map(_.toSeq).getOrElse(Seq()).map { versionDir =>
     // Discover languages
     val languages = versionDir.listFiles().toSeq.map { languageDir =>
       val indexJson = new File(languageDir, "index.json")
@@ -241,7 +216,6 @@ object DocumentationGenerator extends App {
 
     Version(versionDir.getName, languages)
   }.sortBy(_.name) // Will need a better sort in future
-
 
   val currentVersion = versions.find(_.name == currentDocsVersion)
 
@@ -324,6 +298,9 @@ object DocumentationGenerator extends App {
     version -> renderDocVersion(version)
   }
 
+  // Templated pages to generate
+  val templatePages: Seq[(String, Template1[Site, Html])] = site.pages
+
   val generated = templatePages.map((generatePage _).tupled) ++
     Seq(savePage("docIndex","documentation/index.html", html.documentationIndex(stableVersions, previewVersions, oldVersions, versions, communityContents))) ++
     versions.map { version =>
@@ -366,15 +343,6 @@ object DocumentationGenerator extends App {
 }
 
 case class OutputFile(file: File, sitemapUrl: String, includeInSitemap: Boolean, sitemapPriority: String)
-
-/**
-  * The context that gets passed to every page in the documentation.
-  *
-  * @param currentLagomVersion The current version of Lagom.
-  * @param currentDocsVersion The current version of the docs.
-  */
-case class LagomContext(baseUrl: String, path: String, currentLagomVersion: String, currentDocsVersion: String,
-                        blogSummary: BlogSummary, assetFingerPrint: String)
 
 case class VersionSummary(name: String, title: String)
 

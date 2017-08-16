@@ -1,8 +1,8 @@
 @import eu.dcsi.sekyll.docs.BlogSummary
-@import eu.dcsi.sekyll.docs.LagomContext
 @import eu.dcsi.website._
+@import org.raisercostin.sekyll._
 
-@(implicit context: LagomContext)
+@(implicit site: Site)
 @part.html.main(Some("DCSI"))()() {
     <!-- Page Content -->
     <div class="container">
@@ -24,9 +24,17 @@
             </div>
             <div class="col-lg-6">
                 <h2>About Modern Business</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed voluptate nihil eum consectetur similique? Consectetur, quod, incidunt, harum nisi dolores delectus reprehenderit voluptatem perferendis dicta dolorem non blanditiis ex fugiat.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe, magni, aperiam vitae illum voluptatum aut sequi impedit non velit ab ea pariatur sint quidem corporis eveniet. Odit, temporibus reprehenderit dolorum!</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et, consequuntur, modi mollitia corporis ipsa voluptate corrupti eum ratione ex ea praesentium quibusdam? Aut, in eum facere corrupti necessitatibus perspiciatis quis?</p>
+                <p>Direct Consulting Services (DCS) is a consulting company that offers highly skilled consultancy, advisory and solutions in the strategic area of security and Identity Management. Our solutions are based on the most innovative, advanced and proven best practices and standards with highest conceptual and technological security levels to protect any valuable resource, data and user privacy.</p>
+
+				<p>Because we have touched almost every aspect of IT, we are able to create solutions being aware of the implications and consequences. These solutions are fit to the customer’s needs starting with recommending hardware configurations and setups and finishing with delivering and supporting  the provided solution in a professional manner.</p>
+				
+				<p>Our mandate is not to reinvent the wheel but make the  most of what is already established as best practices and methodologies, being in the same time flexible and adapting to the fast moving and highly dynamic Information and Technology Industry.</p>
+				
+				<p>Proven experience implementing Oracle based IAM solutions for major players in telecommunications and education in the Middle East market, both 10g and 11g versions.</p>
+				
+				<p>Successful implementation of Oracle Identity Management Suite 11g at The National Trade Register Office (ONRC) in Romania Supported the Access and Identity Management solution for the European Central Bank.</p>
+				
+				<p>Direct Consulting Services – Proper consulting.</p>
             </div>
         </div>
         <!-- /.row -->
@@ -39,25 +47,25 @@
                 <div class="card h-100 text-center">
                     <img class="card-img-top img-fluid" src="http://placehold.it/750x450" alt="">
                     <div class="card-block">
-                        <h4 class="card-title">Team Member</h4>
+                        <h4 class="card-title">Cristian Chiru</h4>
                         <h6 class="card-subtitle mb-2 text-muted">Position</h6>
                         <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus aut mollitia eum ipsum fugiat odio officiis odit.</p>
                     </div>
                     <div class="card-footer">
-                        <a href="#">office@@dcsi.eu</a>
+                        <a href="#">cristian</a>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 mb-4">
                 <div class="card h-100 text-center">
-                    <img class="card-img-top img-fluid" src="http://placehold.it/750x450" alt="">
+                    <img class="card-img-top img-fluid" src="https://gravatar.com/avatar/44e6e0d2c563fd9da3dcf01e69e5d8f5?s=750" alt="">
                     <div class="card-block">
-                        <h4 class="card-title">Team Member</h4>
+                        <h4 class="card-title">Costin Grigore</h4>
                         <h6 class="card-subtitle mb-2 text-muted">Position</h6>
                         <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus aut mollitia eum ipsum fugiat odio officiis odit.</p>
                     </div>
                     <div class="card-footer">
-                        <a href="#">office@@dcsi.eu</a>
+                        <a href="#">costin</a>
                     </div>
                 </div>
             </div>
@@ -77,30 +85,13 @@
         </div>
         <!-- /.row -->
 
-        <!-- Our Customers -->
         <h2>Our Customers</h2>
         <div class="row">
-            <div class="col-lg-2 col-sm-4 mb-4">
-                <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-            </div>
-            <div class="col-lg-2 col-sm-4 mb-4">
-                <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-            </div>
-            <div class="col-lg-2 col-sm-4 mb-4">
-                <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-            </div>
-            <div class="col-lg-2 col-sm-4 mb-4">
-                <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-            </div>
-            <div class="col-lg-2 col-sm-4 mb-4">
-                <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-            </div>
-            <div class="col-lg-2 col-sm-4 mb-4">
-                <img class="img-fluid" src="http://placehold.it/500x300" alt="">
-            </div>
+        	@for(customer <- site.customers){
+	            <div class="col-lg-3 col-sm-6 mb-6">
+	                <img class="img-fluid mx-auto my-auto d-block" src="@customer.image" alt="">
+	            </div>
+            }
         </div>
-        <!-- /.row -->
-
     </div>
-    <!-- /.container -->
 }

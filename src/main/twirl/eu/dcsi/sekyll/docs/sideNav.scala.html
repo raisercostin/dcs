@@ -1,12 +1,12 @@
-@import eu.dcsi.sekyll.docs.LagomContext
+@import org.raisercostin.sekyll._
 
-@()(implicit context: LagomContext)
+@()(implicit site: Site)
 
 <h3>Documentation</h3>
 <ul>
-    <li><a href="@context.path/get-started.html">Get started</a></li>
-    <li><a href="@context.path/documentation/">Full documentation</a></li>
-    <li><a href="@context.path/blog">Blog</a></li>
+    <li><a href="@site.path/get-started.html">Get started</a></li>
+    <li><a href="@site.path/documentation/">Full documentation</a></li>
+    <li><a href="@site.path/blog">Blog</a></li>
 </ul>
 <h3>Find help</h3>
 <ul>
@@ -16,12 +16,12 @@
 </ul>
 <h3>Contribute</h3>
 <ul>
-    <li><a href="@context.path/get-involved.html">Get involved</a></li>
-    <li><a href="@context.path/conduct.html">Code of conduct</a></li>
-    <li><a href="@context.path/community-process.html">Community process</a></li>
-    <li><a href="@context.path/contributing.html">Contributor guidelines</a></li>
+    <li><a href="@site.path/get-involved.html">Get involved</a></li>
+    <li><a href="@site.path/conduct.html">Code of conduct</a></li>
+    <li><a href="@site.path/community-process.html">Community process</a></li>
+    <li><a href="@site.path/contributing.html">Contributor guidelines</a></li>
 </ul>
 <h3>Programs</h3>
 <ul>
-    <li><a href="@context.path/outreachy/round14.html">Outreachy</a></li>
+    <li><a href="@site.path/outreachy/round14.html">Outreachy</a></li>
 </ul>

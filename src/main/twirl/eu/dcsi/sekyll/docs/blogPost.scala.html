@@ -1,15 +1,15 @@
 @import eu.dcsi.sekyll.docs.BlogPost
-@import eu.dcsi.sekyll.docs.LagomContext
+@import org.raisercostin.sekyll._
 
-@(blogPost: BlogPost, content: Html)(implicit context: LagomContext)
+@(blogPost: BlogPost, content: Html)(implicit site: Site)
 
 @main(Some(blogPost.title)){ @* head *@
-    <link href="@context.path/blog/atom.xml" type="application/atom+xml" rel="home" title="ATOM Feed" />
+    <link href="@site.path/blog/atom.xml" type="application/atom+xml" rel="home" title="ATOM Feed" />
 } { @* footer *@
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-57a0eb1ac33f75f8"></script>
     <script>
         var disqus_config = function () {
-            this.page.url = "@{context.baseUrl}/blog/@{blogPost.id}.html";
+            this.page.url = "@{site.baseUrl}/blog/@{blogPost.id}.html";
             this.page.identifier = "@blogPost.id";
             this.page.title = "@{Html(JavaScriptFormat.escape(blogPost.title).body)}";
         };
@@ -37,7 +37,7 @@
                         <span class="blog-post-date">@blogPost.date.toString("MMMM d, yyyy")</span>
                         <div class="blog-meta-tags">
                             @if(blogPost.tags.nonEmpty) {
-                                <img src="@context.path/images/entypo/white/entypo_tag.svg" class="svg-icon"/>
+                                <img src="@site.path/images/entypo/white/entypo_tag.svg" class="svg-icon"/>
                                 @for(tag <- blogPost.tags) {
                                     <span class="blog-tag"><a href="tags/@{encodePathSegment(tag)}.html">@tag</a></span>
                                 }

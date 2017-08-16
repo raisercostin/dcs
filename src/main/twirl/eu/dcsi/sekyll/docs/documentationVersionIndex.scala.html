@@ -1,8 +1,8 @@
 @import eu.dcsi.sekyll.docs.VersionSummary
 @import eu.dcsi.sekyll.docs.Version
-@import eu.dcsi.sekyll.docs.LagomContext
+@import org.raisercostin.sekyll._
 
-@(version: Version)(implicit ctx: LagomContext)
+@(version: Version)(implicit site: Site)
 
 @toTitleCase(s: String) = {@s.head.toUpper@s.tail}
 
@@ -12,8 +12,8 @@
         <h3>@toTitleCase(lang.language)</h3>
 
         <ul>
-            <li><a href="@ctx.path/documentation/@version.name/@lang.language/Home.html">Reference manual</a></li>
-            <li><a href="@ctx.path/documentation/@version.name/@lang.language/api/index.html">API docs</a></li>
+            <li><a href="@site.path/documentation/@version.name/@lang.language/Home.html">Reference manual</a></li>
+            <li><a href="@site.path/documentation/@version.name/@lang.language/api/index.html">API docs</a></li>
         </ul>
     }
 

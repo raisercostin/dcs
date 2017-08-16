@@ -1,13 +1,13 @@
 @import eu.dcsi.sekyll.docs.svg.html._
-@import eu.dcsi.sekyll.docs.LagomContext
+@import org.raisercostin.sekyll._
 
-@(implicit context: LagomContext)
+@(implicit site: Site)
 
 @main(Some("Get started"))()() {
     <div class="fw-wrapper lgm-purple hero-banner">
         <div class="row">
             <div class="small-12 columns">
-                <a href="@context.path/" class="logo"><img src="@context.path/images/logos/lagom-reverse.svg"></a>
+                <a href="@site.path/" class="logo"><img src="@site.path/images/logos/lagom-reverse.svg"></a>
                 <h1>Using Lagom with Java and sbt</h1>
             </div>
         </div>
@@ -21,7 +21,7 @@
 
                     <p>Before starting, make sure that you
                     have JDK 8 installed and configured. See <a
-                    href="@context.path/documentation/@context.currentDocsVersion/java/JavaPrereqs.html">Lagom documentation</a>
+                    href="@site.path/documentation/@site.currentDocsVersion/java/JavaPrereqs.html">Lagom documentation</a>
                     for information on verifying your Java version.</p>
                     <p>The Lightbend Tech Hub Project Starter makes it simple to create your first project. It uses a Lagom Giter8 template to generate a compressed file that contains:
                     </p><ul>
@@ -68,7 +68,7 @@
 
                     <p>
                         Congratulations! You've created and run your first Lagom system. See
-                        <a href="@context.path/documentation/@context.currentDocsVersion/java/UnderstandHello.html">the
+                        <a href="@site.path/documentation/@site.currentDocsVersion/java/UnderstandHello.html">the
                         Lagom documentation</a> to learn more about your new project.
                     </p>
 

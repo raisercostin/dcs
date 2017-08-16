@@ -1,13 +1,13 @@
 @import eu.dcsi.sekyll.docs.svg.html._
-@import eu.dcsi.sekyll.docs.LagomContext
+@import org.raisercostin.sekyll._
 
-@(implicit context: LagomContext)
+@(implicit site: Site)
 
 @main(Some("Get started"))()() {
     <div class="fw-wrapper lgm-purple hero-banner">
         <div class="row">
             <div class="small-12 columns">
-                <a href="@context.path/" class="logo"><img src="@context.path/images/logos/lagom-reverse.svg"></a>
+                <a href="@site.path/" class="logo"><img src="@site.path/images/logos/lagom-reverse.svg"></a>
                 <h1>Using Lagom with Scala</h1>
             </div>
         </div>
@@ -21,7 +21,7 @@
 
                   <p>Before starting, make sure you have JDK 8 installed and
                   configured. See <a class=""
-                  href="@context.path/documentation/@context.currentDocsVersion/scala/Installation.html#JDK"
+                  href="@site.path/documentation/@site.currentDocsVersion/scala/Installation.html#JDK"
                   target="_blank">the Lagom documentation</a> if you are not
                   sure whether you have the right version of Java or to find the
                   link for installing it.</p>
@@ -87,7 +87,7 @@
                     </ol>
                     <p>
                         Congratulations! You've created and run your first Lagom system. See
-                        <a href="@context.path/documentation/@context.currentDocsVersion/scala/UnderstandHelloScala.html">the
+                        <a href="@site.path/documentation/@site.currentDocsVersion/scala/UnderstandHelloScala.html">the
                         Lagom documentation</a> to learn more about your new project.
                     </p>
 
