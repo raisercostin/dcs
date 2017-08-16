@@ -11695,6 +11695,50 @@ a.text-gray-dark:focus, a.text-gray-dark:hover {
 	font-family: FontAwesome;
 	font-size: 1em;
 }
+
+/*https://codepen.io/davidlazar/pen/dcxou*/
+body:after{
+  content: "beta";
+  position: fixed;
+  width: 80px;
+  height: 25px;
+  background: #EE8E4A;
+  top: 7px;
+  right: -20px;
+  text-align: center;
+  font-size: 13px;
+  font-family: sans-serif;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #fff;
+  line-height: 27px;
+  -ms-transform:rotate(45deg);
+  -webkit-transform:rotate(45deg);
+  transform:rotate(45deg);
+}
+
+
+/* Temporary navbar container fix */
+.navbar-toggler {
+    z-index: 1;
+}
+
+@@media (max-width: 576px) {
+    nav > .container {
+        width: 100%;
+    }
+}
+/* Temporary fix for img-fluid sizing within the carousel */
+   
+.carousel-item.active,
+.carousel-item-next,
+.carousel-item-prev {
+    display: block;
+}
+html {
+    overflow-y: scroll;
+}
+
 /** css\modern-business.css **/
 /*!
  * Start Bootstrap - Modern Business (http://startbootstrap.com/template-overviews/modern-business)
