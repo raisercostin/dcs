@@ -5,34 +5,48 @@ import play.twirl.api.Html
 import eu.dcsi.sekyll.docs._
 
 case class Customer(image:String)
+case class Solution(name:String, link:String)
+object Solution{
+  def apply(name:String):Solution = Solution(name,name)
+}
 
 /**
- * The context that gets passed to every page in the documentation.
- *
- * @param currentLagomVersion The current version of Lagom.
- * @param currentDocsVersion The current version of the docs.
+ * The site gets passed to every page.
+ * Is a wrapper around the generic RawSite making the mapping to final domain types.
  */
 case class Site(baseUrl: String, path: String, currentLagomVersion: String, currentDocsVersion: String,
                         blogSummary: BlogSummary, assetFingerPrint: String){
   def route = RawSite.route
   def route(image:String) = RawSite.route(image)
-  def customers:Seq[Customer] = RawSite.documents[Customer]("customers")
+  def customers:Seq[Customer] = RawSite.documents[Customer](RawSite.collections.customers)
+  def solutions:Seq[Solution] = RawSite.documents[Solution](RawSite.collections.solutions)
   def pages = RawSite.pages
 }
 
 
 object RawSite {
+  object collections{
+    val customers = "customers"
+    val solutions = "solutions"
+  }
   /**Use the routes in your code for statically checked links.*/
   object route{
     val contact = "contact"
     val home = "index.html"
     val about = "about"
+    val services = "services"
   }
   
-  def documents[T](collection:String):Seq[T] =
-    Seq(Customer(route("oracle.png")),Customer(route("gothaer.png")),Customer(route("DFPRADM.png")),Customer(route("EuroCenterBank.png"))).asInstanceOf[Seq[T]]
-  
   def route(image:String):String = s"images/$image"
+  
+  def documents[T](collection:String):Seq[T] = collection match {
+    case collections.customers =>
+      Seq(Customer(route("oracle.png")),Customer(route("gothaer.png")),Customer(route("DFPRADM.png")),Customer(route("EuroCenterBank.png"))).asInstanceOf[Seq[T]]
+    case collections.solutions =>
+      Seq(Solution("Products",route.services),Solution("Development"),Solution("Consultancy"),Solution("Maintenance & Support"),Solution("Academy")).asInstanceOf[Seq[T]]
+    case  _ =>
+      throw new IllegalArgumentException(s"Collection $collection is not defined")
+  }
   
   //Yaml.parse(frontMatter)
   // Templated pages to generate
@@ -60,6 +74,6 @@ object RawSite {
     "portfolio-4-col.html" -> eu.dcsi.website.html.portfolio4col,
     "portfolio-item.html" -> eu.dcsi.website.html.portfolioItem,
     "pricing.html" -> eu.dcsi.website.html.pricing,
-    "services.html" -> eu.dcsi.website.html.services,
+    route.services -> eu.dcsi.website.html.services,
     "sidebar.html" -> eu.dcsi.website.html.sidebar)
 }
