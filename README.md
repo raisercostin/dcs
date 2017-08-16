@@ -43,7 +43,8 @@ The build is made with `sbt`.
 - render current branch by scripts in
   - github
   - gitlab (for private repos)
-
+- yaml inheritance with default config
+  - https://web.archive.org/web/20130213112648/http://blog.101ideas.cz/posts/dry-your-yaml-files.html
 
 ## How could work
 - Generate in a separate branch and publish from there.

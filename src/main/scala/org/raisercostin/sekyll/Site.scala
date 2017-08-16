@@ -3,6 +3,7 @@ package org.raisercostin.sekyll
 import play.twirl.api.Template1
 import play.twirl.api.Html
 import eu.dcsi.sekyll.docs._
+import org.raisercostin.jedi.Locations
 
 case class Customer(image:String)
 case class Solution(name:String, link:String)
@@ -14,17 +15,34 @@ object Solution{
  * The site gets passed to every page.
  * Is a wrapper around the generic RawSite making the mapping to final domain types.
  */
-case class Site(baseUrl: String, path: String, currentLagomVersion: String, currentDocsVersion: String,
+case class Site(currentLagomVersion: String, currentDocsVersion: String,
                         blogSummary: BlogSummary, assetFingerPrint: String){
-  def route = RawSite.route
-  def route(image:String) = RawSite.route(image)
-  def customers:Seq[Customer] = RawSite.documents[Customer](RawSite.collections.customers)
-  def solutions:Seq[Solution] = RawSite.documents[Solution](RawSite.collections.solutions)
+  def route = DcsSite.route
+  def route(image:String) = RawSite.routeImage(image)
+  def customers:Seq[Customer] = RawSite.documents[Customer](DcsSite.collections.customers)
+  def solutions:Seq[Solution] = RawSite.documents[Solution](DcsSite.collections.solutions)
   def pages = RawSite.pages
+  
+  
+  // Set this to Some("your-github-account-name") if you want to deploy the docs to the gh-pages of your own fork
+  // of the repo
+  //val gitHubAccount: Option[String] = None
+  //for master
+  //val (baseUrl, context) = ("http://raisercostin.org/sekyll","/sekyll")
+  //for template
+  //val (baseUrl, context) = ("http://localhost:8080","")
+    //gitHubAccount match {
+    //case Some(account) => (s"http://$account.github.io/lagom.github.io", "/lagom.github.io")
+    //case None => ("https://www.lagomframework.com", "")
+  //}
+  def baseUrl: String = RawSite.baseUrl.getOrElse("")
+  @deprecated
+  def path: String = baseUrl
+  @deprecated
+  def context: String = baseUrl
 }
 
-
-object RawSite {
+object DcsSite{
   object collections{
     val customers = "customers"
     val solutions = "solutions"
@@ -36,12 +54,30 @@ object RawSite {
     val about = "about"
     val services = "services"
   }
+}
+
+object RawSite {
+  import DcsSite.route
+  import DcsSite.collections
   
-  def route(image:String):String = s"images/$image"
+  val yamlContent = Locations.classpath("default.sekyll.yml").readContent + "\n"+ Locations.file(".sekyll.yml").readContent
+
+  {
+    val effective = Locations.file("target/effective.sekyll.yml")
+    effective.mkdirOnParentIfNecessary.writeContent(yamlContent)
+    println(s"write content to $effective")
+  }
+  val yaml = Yaml.parse(yamlContent)
+  
+  Locations.file("target/effective-final.sekyll.yml").usingWriter(Yaml.write(yaml, _))
+  val baseUrl = yaml.getString("baseUrl")
+  println(s"baseUrl=$baseUrl")
+  
+  def routeImage(image:String):String = s"images/$image"
   
   def documents[T](collection:String):Seq[T] = collection match {
     case collections.customers =>
-      Seq(Customer(route("oracle.png")),Customer(route("gothaer.png")),Customer(route("DFPRADM.png")),Customer(route("EuroCenterBank.png"))).asInstanceOf[Seq[T]]
+      Seq(Customer(routeImage("oracle.png")),Customer(routeImage("gothaer.png")),Customer(routeImage("DFPRADM.png")),Customer(routeImage("EuroCenterBank.png"))).asInstanceOf[Seq[T]]
     case collections.solutions =>
       Seq(Solution("Products",route.services),Solution("Development"),Solution("Consultancy"),Solution("Maintenance & Support"),Solution("Academy")).asInstanceOf[Seq[T]]
     case  _ =>

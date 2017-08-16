@@ -16,6 +16,7 @@ import scala.collection.concurrent.TrieMap
 import scala.util.control.NonFatal
 import scala.io.{ Codec, Source }
 import java.nio.charset.CodingErrorAction
+import java.io.Writer
 
 object BlogMetaDataParser {
 
@@ -28,11 +29,11 @@ object BlogMetaDataParser {
   private val gitHubCache = TrieMap.empty[String, GitHubUser]
 
   /**
-    * Parse the front matter from a blog post.
-    *
-    * @param stream The stream to parse
-    * @param id The ID of the blog post
-    */
+   * Parse the front matter from a blog post.
+   *
+   * @param stream The stream to parse
+   * @param id The ID of the blog post
+   */
   def parsePostFrontMatter(stream: InputStream, id: String): BlogPost = {
     val (yaml, markdown) = extractFrontMatter(stream)
 
@@ -90,9 +91,9 @@ object BlogMetaDataParser {
           Json.parse(stream).as[GitHubUser]
         } finally {
           stream.close()
-        }        
+        }
       } catch {
-        case e: java.io.IOException => {//if DocumentationGenerator.devMode => {
+        case e: java.io.IOException => { //if DocumentationGenerator.devMode => {
           // GitHub might be rate-limiting us. If we're in development mode, just ignore this.
           Logger.warn(s"GitHub might be rate-limiting us; using fallback for user $name")
           GitHubUser(name, "https://www.gravatar.com/avatar/default", s"https://github.com/$name")
@@ -108,7 +109,7 @@ object GitHubUser {
   implicit val reads: Reads[GitHubUser] = Json.reads[GitHubUser]
 }
 
-case class Yaml(map: Map[String, AnyRef]) {
+case class Yaml(map: Map[String, AnyRef], original: java.util.Map[String, AnyRef]) {
 
   def getString(key: String) = getAs[String](key)
   def getInt(key: String) = getAs[Int](key)
@@ -139,20 +140,25 @@ case class Yaml(map: Map[String, AnyRef]) {
 }
 
 object Yaml {
-  val empty = Yaml(Map())
+  val empty = Yaml(Map(), new java.util.HashMap())
+
+  def write(yaml: Yaml, writer: Writer) = {
+    //println(yaml.map.mkString("\n"))
+    new org.yaml.snakeyaml.Yaml().dump(yaml.original, writer);
+  }
 
   def parse(yaml: String) = {
 
     import scala.collection.JavaConverters._
 
     def yamlToScala(obj: AnyRef): AnyRef = obj match {
-      case map: java.util.Map[String, AnyRef] => new Yaml(map.asScala.toMap.mapValues(yamlToScala))
-      case list: java.util.List[AnyRef] => list.asScala.toList.map(yamlToScala)
-      case s: String => s
-      case n: Number => n
-      case b: java.lang.Boolean => b
-      case d: Date => new DateTime(d)
-      case null => null
+      case map: java.util.Map[String, AnyRef] => new Yaml(map.asScala.toMap.mapValues(yamlToScala), map)
+      case list: java.util.List[AnyRef]       => list.asScala.toList.map(yamlToScala)
+      case s: String                          => s
+      case n: Number                          => n
+      case b: java.lang.Boolean               => b
+      case d: Date                            => new DateTime(d)
+      case null                               => null
       case other =>
         Logger.warn("Unexpected YAML object of type " + other.getClass)
         other.toString
