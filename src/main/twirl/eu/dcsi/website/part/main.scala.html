@@ -45,10 +45,10 @@
                         <a class="nav-link" href="@site.route.about">ABOUT US</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownOurWork" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="portfolio" id="navbarDropdownOurWork" aria-haspopup="true" aria-expanded="false">
                             PORTOFOLIO
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownOurWork">
+                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-on-hover" aria-labelledby="navbarDropdownOurWork">
                             <a class="dropdown-item" href="portfolio-1-col.html">Portfolio</a>
                             <a class="dropdown-item" href="portfolio-2-col.html">Customers</a>
                             <div class="dropdown-divider"></div>
@@ -63,7 +63,7 @@
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownSolutions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             SOLUTIONS
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownSolutions">
+                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-on-hover" aria-labelledby="navbarDropdownSolutions">
                         	@for(solution <- site.solutions){
                             <a class="dropdown-item" href="@solution.link">@solution.name</a>
                             }
@@ -76,7 +76,7 @@
                             CAREER
                         </a>
                         @* see https://careers.google.com *@ 
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownCareer">
+                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-on-hover" aria-labelledby="navbarDropdownCareer">
                             <a class="dropdown-item" href="teams">Teams</a>
                             <a class="dropdown-item" href="locations">Locations</a>
                             <a class="dropdown-item" href="how-we-hire">How we hire</a>
@@ -88,7 +88,7 @@
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownInsight" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             BLOG
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownInsight">
+                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-on-hover" aria-labelledby="navbarDropdownInsight">
                             <a class="dropdown-item" href="blog">Blog</a>
                             <a class="dropdown-item" href="events">Events</a>
                             <a class="dropdown-item" href="news">News</a>
