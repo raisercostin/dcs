@@ -68,27 +68,7 @@ object DocumentationGenerator extends App {
       "https://thecoderwriter.wordpress.com/2016/09/24/run-a-lagom-service-standalone-with-zookeeper/",
       "Coder's IO"))
 
-  // Set this to Some("your-github-account-name") if you want to deploy the docs to the gh-pages of your own fork
-  // of the repo
-  val gitHubAccount: Option[String] = None
 
-  //for master
-  //val (baseUrl, context) = ("http://raisercostin.org/sekyll","/sekyll")
-  //for template
-  val (baseUrl, context) = ("http://localhost:8080", "")
-  //gitHubAccount match {
-  //case Some(account) => (s"http://$account.github.io/lagom.github.io", "/lagom.github.io")
-  //case None => ("https://www.lagomframework.com", "")
-  //}
-
-  // Redirects
-  // Since this is a static site, and GitHub doesn't support redirects, we generate pages that use HTML redirects.
-  val redirects: Seq[(String, String)] = Seq(
-    "/documentation/scala/index.html" -> s"$context/documentation/$currentDocsVersion/scala/Home.html",
-    "/documentation/java/index.html" -> s"$context/documentation/$currentDocsVersion/java/Home.html",
-    // Redirect anyone heading to the old download page to the get started page
-    "/download.html" -> "/get-started.html",
-    "blog-post.html" -> "/blog/article1.html")
 
   val outputDir = new File(args(0))
   val docsDir = new File(args(1))
@@ -114,8 +94,18 @@ object DocumentationGenerator extends App {
     })
   }
 
-  implicit val site = Site(baseUrl, context, currentLagomVersion, currentDocsVersion,
+  implicit val site = Site(currentLagomVersion, currentDocsVersion,
     blogSummary, assetFingerPrint)
+
+    println(site.baseUrl)
+  // Redirects
+  // Since this is a static site, and GitHub doesn't support redirects, we generate pages that use HTML redirects.
+  val redirects: Seq[(String, String)] = Seq(
+    "/documentation/scala/index.html" -> s"${site.baseUrl}/documentation/$currentDocsVersion/scala/Home.html",
+    "/documentation/java/index.html" -> s"${site.baseUrl}/documentation/$currentDocsVersion/java/Home.html",
+    // Redirect anyone heading to the old download page to the get started page
+    "/download.html" -> "/get-started.html",
+    "blog-post.html" -> "/blog/article1.html")
 
   def generatePage(name: String, template: Template1[Site, Html]): OutputFile = {
     savePage(s"generatePage $name", name, template.render(site))
@@ -173,7 +163,7 @@ object DocumentationGenerator extends App {
 
     renderedBlogPosts.map {
       case (post, renderedPost) =>
-        val fixedLinks = if (context.nonEmpty) FeedFormatter.makeAbsoluteLinks(renderedPost, context) else renderedPost
+        val fixedLinks = if (site.baseUrl.nonEmpty) FeedFormatter.makeAbsoluteLinks(renderedPost, site.baseUrl) else renderedPost
         val page = eu.dcsi.website.part.html.blogPost(post, fixedLinks)
         savePage(s"blogPost ${post.id}", s"blog/${post.id}.html", page, sitemapPriority = "0.8")
     } ++ blogPostsByTag.map {
@@ -271,7 +261,7 @@ object DocumentationGenerator extends App {
             val versionPages = languageVersions.map(_.pageFor(path))
             val nav = getNav(context)
             val canonical = currentLanguageVersion.map(_.pageFor(path)).collect {
-              case VersionPage(name, true) => s"$baseUrl/documentation/$name/${version.language}/$path"
+              case VersionPage(name, true) => s"${site.baseUrl}/documentation/$name/${version.language}/$path"
             }
 
             val nextLinks = getNext(context)
@@ -321,7 +311,7 @@ object DocumentationGenerator extends App {
       }
   }.getOrElse(Nil))
 
-  val generatedSitemaps = Sitemap.generateSitemaps(outputDir, baseUrl, Seq(mainSitemap, docsSitemap))
+  val generatedSitemaps = Sitemap.generateSitemaps(outputDir, site.baseUrl, Seq(mainSitemap, docsSitemap))
 
   val generatedSet: Set[File] = generated.map(_.file).toSet ++ generatedSitemaps ++ generatedDocs.flatMap(_._2.map(_.file))
 
