@@ -42,6 +42,8 @@ case class Site(currentLagomVersion: String, currentDocsVersion: String,
   def path: String = baseUrl
   @deprecated
   def context: String = baseUrl
+  
+  def collections:Seq[OutputFile] = RawSite.rawCollections
 }
 
 object DcsSite{
@@ -126,4 +128,17 @@ object RawSite {
     "pricing.html" -> eu.dcsi.website.html.pricing,
     route.services -> eu.dcsi.website.html.services,
     "sidebar.html" -> eu.dcsi.website.html.sidebar)
+    
+  def rawCollections:Seq[OutputFile] = {
+        //savePage(s"blogPost ${post.id}", s"blog/${post.id}.html", page, sitemapPriority = "0.8")
+//      // Feed
+//      val file = new File(outputDir, "blog/atom.xml")
+//      file.getParentFile.mkdirs()
+//
+//      XML.save(file.getAbsolutePath, FeedFormatter.atom(renderedBlogPosts.take(10)), enc = "utf-8")
+//
+//      OutputFile(file, "", includeInSitemap = false, sitemapPriority = "")
+        Seq()
+    }
+
 }
