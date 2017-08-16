@@ -50,6 +50,13 @@ The build is made with `sbt`.
   - https://css-tricks.com/semantic-class-names/
   - https://stackoverflow.com/questions/22133639/bootstrap-and-html5-semantic-tags
   - https://stackoverflow.com/questions/23583235/how-to-combine-twitter-bootstrap-3-and-html5-semantic-elements
+- render first requested page and continue with others in background (to speedup dev lifecycle)
+- add `@site.page` context info about current page. Two ways to implement it:
+  - the iterator should modify this.
+  - the Site is actually a Page that refers the site.  
+
+## Bugs
+- hover doesn't work on tablets/devices
 
 ## How could work
 - Generate in a separate branch and publish from there.

@@ -7,6 +7,8 @@ import org.raisercostin.jedi.Locations
 
 case class Customer(image:String)
 case class Solution(name:String, link:String)
+case class DcsPartner(name:String, url:String, logo:String)
+
 object Solution{
   def apply(name:String):Solution = Solution(name,name)
 }
@@ -21,8 +23,8 @@ case class Site(currentLagomVersion: String, currentDocsVersion: String,
   def route(image:String) = RawSite.routeImage(image)
   def customers:Seq[Customer] = RawSite.documents[Customer](DcsSite.collections.customers)
   def solutions:Seq[Solution] = RawSite.documents[Solution](DcsSite.collections.solutions)
+  def partners:Seq[DcsPartner] = RawSite.documents[DcsPartner](DcsSite.collections.partners)
   def pages = RawSite.pages
-  
   
   // Set this to Some("your-github-account-name") if you want to deploy the docs to the gh-pages of your own fork
   // of the repo
@@ -46,13 +48,22 @@ object DcsSite{
   object collections{
     val customers = "customers"
     val solutions = "solutions"
+    val partners = "partners"
   }
   /**Use the routes in your code for statically checked links.*/
   object route{
-    val contact = "contact"
-    val home = "index.html"
-    val about = "about"
-    val services = "services"
+    //TODO add validation that all links are used.
+    //var used = Seq[String]()
+    def use(name:String):String = {
+      //used = name +: used
+      name
+    }
+    
+    val contact = use("contact")
+    val home = use("index.html")
+    val about = use("about")
+    val services = use("services")
+    val partners = use("partners")
   }
 }
 
@@ -80,6 +91,8 @@ object RawSite {
       Seq(Customer(routeImage("oracle.png")),Customer(routeImage("gothaer.png")),Customer(routeImage("DFPRADM.png")),Customer(routeImage("EuroCenterBank.png"))).asInstanceOf[Seq[T]]
     case collections.solutions =>
       Seq(Solution("Products",route.services),Solution("Development"),Solution("Consultancy"),Solution("Maintenance & Support"),Solution("Academy")).asInstanceOf[Seq[T]]
+    case collections.partners =>
+      Seq(DcsPartner("evolveum","https://evolveum.com","partners/evolveum/evolveum-logo-trademark.png")).asInstanceOf[Seq[T]]
     case  _ =>
       throw new IllegalArgumentException(s"Collection $collection is not defined")
   }
@@ -87,6 +100,7 @@ object RawSite {
   //Yaml.parse(frontMatter)
   // Templated pages to generate
   val pages: Seq[(String, Template1[Site, Html])] = Seq(
+    route.partners -> eu.dcsi.website.html.partners,
     "index2.html" -> html.index,
     "get-involved.html" -> html.getinvolved,
     "get-started.html" -> html.getstarted,
