@@ -10,26 +10,11 @@ import org.raisercostin.jedi.Locations
 object Blog {
 
   /** Find the blog posts, sorted by date in reverse, ie most recent first */
-  def findBlogPosts(blogDir: File): Seq[BlogPost] = {
-    //val blogPostFiles:Seq[File] =
-      Locations.file(blogDir).list.filter(_.extension == "md").filter(!_.name.startsWith("_")).map{file=>
-        file.usingInputStream(stream=>
-          BlogMetaDataParser.parsePostFrontMatter(stream, file.baseName)
-        )
+  def findBlogPosts(blogDir: File): Seq[BlogPost] =
+    Locations.file(blogDir).list.filter(_.extension == "md").filter(!_.name.startsWith("_")).map { file =>
+      file.usingInputStream(stream =>
+        BlogMetaDataParser.parsePostFrontMatter(stream, file.baseName))
     }.toSeq.sortBy(_.date.toDate.getTime).reverse
-//      //blogDir.listFiles().toSeq.filter(file => file.getName.endsWith(".md") && !file.getName.startsWith("_"))
-//      //val blogPosts = blogPostFiles.map { file =>
-//      val stream = new FileInputStream(file)
-//      try {
-//        BlogMetaDataParser.parsePostFrontMatter(stream, file.getName.dropRight(3))
-//      } catch {
-//        case NonFatal(e) => throw new IOException(s"Unable to parse ${file.getName}", e)
-//      } finally {
-//        stream.close()
-//      }
-//    }
-    //blogPosts.sortBy(_.date.toDate.getTime).reverse
-  }
 
 }
 

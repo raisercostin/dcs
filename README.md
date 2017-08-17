@@ -54,6 +54,10 @@ The build is made with `sbt`.
 - add `@site.page` context info about current page. Two ways to implement it:
   - the iterator should modify this.
   - the Site is actually a Page that refers the site.  
+- strict/lax evaluation of meta parameters 
+- fnmatch (gitignore pattern format) implementation in scala 
+  - https://gist.github.com/Aivean/6b2bb7c2473b4b7e1376fac1d2d49cf8
+  - https://www.google.com/search?q=fnmatch+implemenataion+in+scala
 
 ## Bugs
 - hover doesn't work on tablets/devices

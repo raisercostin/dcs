@@ -36,7 +36,9 @@ object BlogMetaDataParser {
    */
   def parsePostFrontMatter(stream: InputStream, id: String): BlogPost = {
     val (yaml, markdown) = extractFrontMatter(stream)
-
+    toBlogPost(id, yaml, markdown)
+  }
+  def toBlogPost(id:String, yaml:Yaml, markdown:String):BlogPost = {
     val title = yaml.getString("title").getOrElse {
       sys.error(s"No title specified in front matter of blog post $id")
     }
@@ -66,7 +68,7 @@ object BlogMetaDataParser {
     BlogPost(id, date, markdown, title, summary, BlogAuthor(authorName, authorUrl, authorAvatar), tags.toSet)
   }
 
-  private def extractFrontMatter(stream: InputStream): (Yaml, String) = {
+  def extractFrontMatter(stream: InputStream): (Yaml, String) = {
     val decoder = Codec.UTF8.decoder.onMalformedInput(CodingErrorAction.IGNORE)
     val lines = Source.fromInputStream(stream)(decoder).getLines()
       .dropWhile(_.isEmpty)
@@ -109,7 +111,7 @@ object GitHubUser {
   implicit val reads: Reads[GitHubUser] = Json.reads[GitHubUser]
 }
 
-case class Yaml(map: Map[String, AnyRef], original: java.util.Map[String, AnyRef]) {
+case class Yaml(map: Map[String, AnyRef], original: java.util.Map[String, AnyRef], strict:Boolean = true) {
 
   def getString(key: String) = getAs[String](key)
   def getInt(key: String) = getAs[Int](key)
@@ -119,22 +121,28 @@ case class Yaml(map: Map[String, AnyRef], original: java.util.Map[String, AnyRef
 
   def getMap[T](key: String)(implicit ct: ClassTag[T]): Option[Map[String, T]] = getAs[Yaml](key).map(_.map.filter {
     case (k, t) if ct.runtimeClass.isInstance(t) => true
-    case (k, other) =>
-      Logger.warn("Ignoring map value for key " + k + ", expected " + ct + " but was " + other)
+    case (k, other) if strict=>
+      throw new IllegalArgumentException(s"Ignoring map value for key [$k], expected [$ct] but was [$other]")
+    case (k, other) if !strict=>     
+      Logger.warn(s"Ignoring map value for key [$k], expected [$ct] but was [$other]")
       false
   }.asInstanceOf[Map[String, T]])
-
+  
   def getList[T](key: String)(implicit ct: ClassTag[T]): Option[List[T]] = getAs[List[_]](key).map(_.filter {
     case t if ct.runtimeClass.isInstance(t) => true
-    case other =>
-      Logger.warn("Ignoring list value for key " + key + ", expected " + ct + " but was " + other)
+    case other if strict=>
+      throw new IllegalArgumentException(s"Ignoring list value for key [$key], expected [${ct.runtimeClass}] but was [${other.getClass()}] with value [$other]")
+    case other if !strict =>
+      Logger.warn(s"Ignoring list value for key [$key], expected [$ct] but was [$other]")
       false
   }.asInstanceOf[List[T]])
 
   def getAs[T](key: String)(implicit ct: ClassTag[T]): Option[T] = map.get(key).flatMap {
     case t if ct.runtimeClass.isInstance(t) => Some(t.asInstanceOf[T])
-    case other =>
-      Logger.warn("Ignoring value for key " + key + ", expected " + ct + " but was " + other)
+    case other if strict=>
+      throw new IllegalArgumentException(s"Ignoring value for key [$key], expected [$ct] but was [$other]")
+    case other if !strict =>
+      Logger.warn(s"Ignoring value for key [$key], expected [$ct] but was [$other]")
       None
   }
 }
