@@ -10,7 +10,7 @@ import scala.util.Try
 
 case class Customer(image: String)
 case class Solution(name: String, link: String)
-case class DcsPartner(name: String, url: String, logo: String, content:String)
+case class DcsPartner(name: String, url: String, logo: String, content: String, rendered: Html)
 
 object Solution {
   def apply(name: String): Solution = Solution(name, name)
@@ -39,8 +39,8 @@ object DcsSite {
   }
 }
 
-case class SiteDocument(yaml: Yaml, markdown: String, file: FileLocation, site: Site){
-  def relative(relativePath:String):RelativeLocation = file.parent.child(relativePath).extractPrefix(Locations.file(site.config.source.getOrElse(""))).get
+case class SiteDocument(yaml: Yaml, markdown: String, file: FileLocation, site: Site, rendered: Html) {
+  def relative(relativePath: String): RelativeLocation = file.parent.child(relativePath).extractPrefix(Locations.file(site.config.source.getOrElse(""))).get
 }
 
 /**
@@ -74,7 +74,7 @@ case class Site(currentLagomVersion: String, currentDocsVersion: String,
   def path: String = baseUrl
   @deprecated
   def context: String = baseUrl
-  def config:SiteConfig = RawSite.config
+  def config: SiteConfig = RawSite.config
 
   private def routeImage(image: String): String = s"images/$image"
 
@@ -84,14 +84,15 @@ case class Site(currentLagomVersion: String, currentDocsVersion: String,
     case collections.solutions =>
       Seq(Solution("Products", route.services), Solution("Development"), Solution("Consultancy"), Solution("Maintenance & Support"), Solution("Academy")).asInstanceOf[Seq[T]]
     case collections.partners =>
-      allCollections.collect{case doc if isPartner(doc) =>
-          DcsPartner(doc.yaml.getString("name").get,doc.yaml.getString("url").get,doc.relative(doc.yaml.getString("logo").get).relativePath,doc.markdown)
+      allCollections.collect {
+        case doc if isPartner(doc) =>
+          DcsPartner(doc.yaml.getString("name").get, doc.yaml.getString("url").get, doc.relative(doc.yaml.getString("logo").get).relativePath, doc.markdown, doc.rendered)
       }.toSeq.asInstanceOf[Seq[T]]
-      //Seq(DcsPartner("evolveum", "https://evolveum.com", "partners/evolveum/evolveum-logo-trademark.png")).asInstanceOf[Seq[T]]
+    //Seq(DcsPartner("evolveum", "https://evolveum.com", "partners/evolveum/evolveum-logo-trademark.png")).asInstanceOf[Seq[T]]
     case _ =>
       throw new IllegalArgumentException(s"Collection $collection is not defined")
   }
-  def isPartner(doc:SiteDocument) = doc.file.path.contains("/partners/")
+  def isPartner(doc: SiteDocument) = doc.file.path.contains("/partners/")
 
   val allCollections: Seq[SiteDocument] = RawSite.rawCollections(this).toSeq
 }
@@ -170,10 +171,16 @@ object RawSite {
       println(s"""analyze ${file.absolute} ... \n  ${yaml.map.mkString("\n  ")}""")
       //val post = BlogMetaDataParser.toBlogPost(file.baseName, yaml, markdown)
       val renderedPost = Html(DocumentationGenerator.markdownToHtml(markdown))
-      val fixedLinks = if (site.baseUrl.nonEmpty) FeedFormatter.makeAbsoluteLinks(renderedPost, site.baseUrl) else renderedPost
+      val base = file.extractPrefix(Locations.file(site.config.source.getOrElse(""))).get.parent.relativePath
+
+      val fixedLinks =
+        if (site.baseUrl.nonEmpty)
+          FeedFormatter.makeAbsoluteLinks(renderedPost, site.baseUrl + "/" + base)
+        else
+          FeedFormatter.makeAbsoluteLinks(renderedPost, base)
       //val page = eu.dcsi.website.part.html.blogPost(post, fixedLinks)
       //DocumentationGenerator.savePage(s"blogPost ${post.id}", s"blog/${post.id}.html", page, sitemapPriority = "0.8")
-      SiteDocument(yaml, markdown, file, site)
+      SiteDocument(yaml, markdown, file, site, fixedLinks)
     }
   }
 
