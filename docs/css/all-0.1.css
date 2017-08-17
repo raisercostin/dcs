@@ -11739,6 +11739,16 @@ html {
     overflow-y: scroll;
 }
 
+.dropdown-menu{
+    margin: 0;
+}
+ 
+@media (min-width: 979px) {
+  .dropdown:hover > .dropdown-menu-on-hover {
+    display: block;
+    margin: 0;
+  }
+}
 /** css\modern-business.css **/
 /*!
  * Start Bootstrap - Modern Business (http://startbootstrap.com/template-overviews/modern-business)
