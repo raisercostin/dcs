@@ -1,2 +1,17 @@
-#baseUrl: "/dcs" # does not include hostname
 baseUrl: "/dcs" # does not include hostname
+exclude:
+  - target
+  - target2
+  - .git
+  - .settings
+  - project
+  - src
+  - .cache-main
+  - .cache-tests
+  - .classpath
+  - .sekyll
+  - build.sbt
+  - eclipse.sbt
+  - docs
+  - README.me
+destination: docs

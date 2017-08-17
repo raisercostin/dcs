@@ -29,6 +29,7 @@ libraryDependencies ++= Seq(
   
     ,"com.lightbend.markdown" %% "lightbend-markdown-server" % "1.5.2"
     ,"org.yaml" % "snakeyaml" % "1.12"
+    ,"junit" % "junit" % "4.12" % "test"
 )
 
 resolvers += Resolver.bintrayIvyRepo("typesafe", "ivy-releases")

@@ -97,7 +97,7 @@ object DocumentationGenerator extends App {
   implicit val site = Site(currentLagomVersion, currentDocsVersion,
     blogSummary, assetFingerPrint)
 
-    println(site.baseUrl)
+  //println(site.baseUrl)
   // Redirects
   // Since this is a static site, and GitHub doesn't support redirects, we generate pages that use HTML redirects.
   val redirects: Seq[(String, String)] = Seq(
@@ -173,7 +173,7 @@ object DocumentationGenerator extends App {
           blogPostSummaries.find(_._1.id == post.id)
         }
         savePage(s"blogPost tag=$tag", s"blog/tags/$tag.html", html.blog(s"Blog posts tagged with $tag", renderRecent = true, postSummaries))
-    } :+ {
+    } /*++ site.collections*/ :+ {
       // Index page
       savePage(s"blogPostIndex2", "blog2/index.html", html.blog("Blog2", renderRecent = false, blogPostSummaries.take(10)),
         sitemapPriority = "0.5")

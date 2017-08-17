@@ -12,3 +12,4 @@
 /project/project/
 #master will contain the generated docs
 #docs/
+/.cache-tests

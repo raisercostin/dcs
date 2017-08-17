@@ -1,6 +1,5 @@
 The sample site generated in `master` branch: http://raisercostin.org/sekyll
 
-
 A second sample is at http://raisercostin.gitlab.io/sekyll
 
 # Sekyll
@@ -45,6 +44,23 @@ The build is made with `sbt`.
   - gitlab (for private repos)
 - yaml inheritance with default config
   - https://web.archive.org/web/20130213112648/http://blog.101ideas.cz/posts/dry-your-yaml-files.html
+- publish via travis: https://github.com/jostly/template-sbt-travis
+- swtich tags to semantic tags
+  - https://coderwall.com/p/wixovg/bootstrap-without-all-the-debt
+  - https://css-tricks.com/semantic-class-names/
+  - https://stackoverflow.com/questions/22133639/bootstrap-and-html5-semantic-tags
+  - https://stackoverflow.com/questions/23583235/how-to-combine-twitter-bootstrap-3-and-html5-semantic-elements
+- render first requested page and continue with others in background (to speedup dev lifecycle)
+- add `@site.page` context info about current page. Two ways to implement it:
+  - the iterator should modify this.
+  - the Site is actually a Page that refers the site.  
+- strict/lax evaluation of meta parameters 
+- fnmatch (gitignore pattern format) implementation in scala 
+  - https://gist.github.com/Aivean/6b2bb7c2473b4b7e1376fac1d2d49cf8
+  - https://www.google.com/search?q=fnmatch+implemenataion+in+scala
+
+## Bugs
+- hover doesn't work on tablets/devices
 
 ## How could work
 - Generate in a separate branch and publish from there.
