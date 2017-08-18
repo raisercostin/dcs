@@ -39,6 +39,10 @@ The build is made with `sbt`.
 - deploy command to release static site to
   - folder
   - other branch
+  - via travis
+    - https://gist.github.com/domenic/ec8b0fc8ab45f39403dd
+    - https://benlimmer.com/2013/12/26/automatically-publish-javadoc-to-gh-pages-with-travis-ci/
+    - https://www.google.ro/search?q=github+publish+gitpages+after+travis
 - render current branch by scripts in
   - github
   - gitlab (for private repos)
@@ -58,6 +62,8 @@ The build is made with `sbt`.
 - fnmatch (gitignore pattern format) implementation in scala 
   - https://gist.github.com/Aivean/6b2bb7c2473b4b7e1376fac1d2d49cf8
   - https://www.google.com/search?q=fnmatch+implemenataion+in+scala
+- detect changed markdown files
+- change markdown from pegdown to kramdown
 
 ## Bugs
 - hover doesn't work on tablets/devices

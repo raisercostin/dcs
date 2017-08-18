@@ -4,6 +4,8 @@ name: evolveum
 url: https://eveolveum.com
 logo: evolveum/evolveum-logo-trademark.png
 ---
+
+{: style="background-color:blue"}
 ![MidPoint Identity and Access Management](evolveum/midPoint.png)
 
 # Open Identity & Organization Management and Governance platform

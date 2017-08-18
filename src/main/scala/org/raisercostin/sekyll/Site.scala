@@ -95,6 +95,15 @@ case class Site(currentLagomVersion: String, currentDocsVersion: String,
   def isPartner(doc: SiteDocument) = doc.file.path.contains("/partners/")
 
   val allCollections: Seq[SiteDocument] = RawSite.rawCollections(this).toSeq
+
+  import play.doc.PrettifyVerbatimSerializer
+  import org.pegdown.{ Extensions, LinkRenderer, PegDownProcessor, VerbatimSerializer }
+  import scala.collection.JavaConverters._
+  private lazy val pegdown = new PegDownProcessor(Extensions.ALL)
+  def markdownToHtml(markdown: String) = {
+    pegdown.markdownToHtml(markdown, new LinkRenderer,
+      Map[String, VerbatimSerializer](VerbatimSerializer.DEFAULT -> PrettifyVerbatimSerializer).asJava)
+  }
 }
 
 case class SiteConfig(yaml: Yaml) {
@@ -170,7 +179,7 @@ object RawSite {
       val (yaml, markdown) = BlogMetaDataParser.extractFrontMatter(stream)
       println(s"""analyze ${file.absolute} ... \n  ${yaml.map.mkString("\n  ")}""")
       //val post = BlogMetaDataParser.toBlogPost(file.baseName, yaml, markdown)
-      val renderedPost = Html(DocumentationGenerator.markdownToHtml(markdown))
+      val renderedPost = Html(site.markdownToHtml(markdown))
       val base = file.extractPrefix(Locations.file(site.config.source.getOrElse(""))).get.parent.relativePath
 
       val fixedLinks =
