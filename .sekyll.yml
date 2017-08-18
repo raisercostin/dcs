@@ -1,4 +1,3 @@
-#baseUrl: "/dcs" # does not include hostname
 baseUrl: "" # does not include hostname
 exclude:
   - target
