@@ -77,3 +77,7 @@ html {
     margin: 0;
   }
 }
+
+.card{
+	overflow-x:hidden;
+}
