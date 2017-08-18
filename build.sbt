@@ -194,5 +194,7 @@ WebKeys.pipeline ++= {
 }
 watchSources ++= {
   ((sourceDirectory in Compile).value / "markdown").***.get ++
-    (sourceDirectory.value / "blog").***.get
+    (sourceDirectory.value / "blog").***.get ++
+    (baseDirectory.value / "partners").***.get ++
+    (baseDirectory.value / "solutions").***.get
 }
