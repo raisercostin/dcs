@@ -49,7 +49,7 @@ case class SiteDocument(yaml: Yaml, markdown: String, file: FileLocation, site: 
  * Is a wrapper around the generic RawSite making the mapping to final domain types.
  */
 case class Site(currentLagomVersion: String, currentDocsVersion: String,
-                blogSummary: BlogSummary, assetFingerPrint: String) {
+                blogSummary: BlogSummary, assetFingerPrint: String) extends RawSite {
   import DcsSite.collections
 
   def route = DcsSite.route
@@ -75,7 +75,6 @@ case class Site(currentLagomVersion: String, currentDocsVersion: String,
   def path: String = baseUrl
   @deprecated
   def context: String = baseUrl
-  def config: SiteConfig = RawSite.config
 
   private def routeImage(image: String): String = s"images/$image"
 
@@ -96,9 +95,21 @@ case class Site(currentLagomVersion: String, currentDocsVersion: String,
   def isPartner(doc: SiteDocument) = doc.file.path.contains("/partners/")
 
   val allCollections: Seq[SiteDocument] = RawSite.rawCollections(this).toSeq
-  
-  val renderer = new MarkdownRenderer()
+
+  lazy val renderer = new MarkdownRenderer()
   def markdownToHtml(markdown: String) = renderer.markdownToHtml(markdown)
+
+  def markdownPages: Seq[OutputFile] = allCollections.map { item =>
+    val page = eu.dcsi.website.html.page(item)(this)
+    DocumentationGenerator.savePage(s"markdown page ${item.file}", relativeFile(item.file).withExtension(_ => "").relativePath, page, sitemapPriority = "0.8")
+  }
+  def relativeFile(file: FileLocation): RelativeLocation = {
+    val f = file.extractPrefix(src).get
+    if(f.name=="index.md")
+      f.parent
+    else
+      f
+  }
 }
 
 case class SiteConfig(yaml: Yaml) {
@@ -108,9 +119,8 @@ case class SiteConfig(yaml: Yaml) {
   val exclude = yaml.getList[String]("exclude")
   println(s"""loaded config ${this.yaml.map.mkString("  ", "\n  ", "\n")}""")
 }
-
-object RawSite {
-  import DcsSite.route
+class RawSite {
+  val config = SiteConfig(readYaml())
 
   def readYaml() = {
     val yamlContent = Locations.classpath("default.sekyll.yml").readContent + "\n" + Locations.file(".sekyll.yml").readContent
@@ -125,7 +135,12 @@ object RawSite {
     Locations.file("target/effective-final.sekyll.yml").usingWriter(Yaml.write(yaml, _))
     yaml
   }
-  val config = SiteConfig(readYaml())
+
+  val src = Locations.file(config.source.getOrElse(""))
+}
+
+object RawSite extends RawSite {
+  import DcsSite.route
 
   //Yaml.parse(frontMatter)
   // Templated pages to generate
@@ -164,8 +179,6 @@ object RawSite {
     val path = file.relativePath
     config.exclude.getOrElse(Seq()).forall { x: String => !path.contains(x) }
   }
-
-  val src = Locations.file(config.source.getOrElse(""))
   val files =
     src.descendants.filter(f => accept(f.extractPrefix(src).get)).filter(!_.name.startsWith("_")).partition(_.extension == "md")
 
@@ -182,8 +195,6 @@ object RawSite {
           FeedFormatter.makeAbsoluteLinks(renderedPost, site.baseUrl + "/" + base)
         else
           FeedFormatter.makeAbsoluteLinks(renderedPost, base)
-      //val page = eu.dcsi.website.part.html.blogPost(post, fixedLinks)
-      //DocumentationGenerator.savePage(s"blogPost ${post.id}", s"blog/${post.id}.html", page, sitemapPriority = "0.8")
       SiteDocument(yaml, markdown, file, site, fixedLinks)
     }
   }

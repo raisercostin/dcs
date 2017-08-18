@@ -6,6 +6,14 @@ A second sample is at http://raisercostin.gitlab.io/sekyll
 
 ## How it works
 
+The content is generated in `docs/` folder.
+Steps:
+  - there are several types of files that will be statical types
+    - **/*.md - markdon files converted to html
+    - `src/main/twirl` - layout/tags pages that are compiled
+       - any page can refer the entire content via `@site.xxx` properties
+    - all other files - copied directly in docs folder
+
 Everything in `docs/` is published at raisercostin.gitlab.io .
 The content in `docs` is a manual copy of a `target/web/stage`.
 

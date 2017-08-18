@@ -166,7 +166,7 @@ object DocumentationGenerator extends App {
           blogPostSummaries.find(_._1.id == post.id)
         }
         savePage(s"blogPost tag=$tag", s"blog/tags/$tag.html", html.blog(s"Blog posts tagged with $tag", renderRecent = true, postSummaries))
-    } /*++ site.collections*/ :+ {
+    } ++ site.markdownPages :+ {
       // Index page
       savePage(s"blogPostIndex2", "blog2/index.html", html.blog("Blog2", renderRecent = false, blogPostSummaries.take(10)),
         sitemapPriority = "0.5")
