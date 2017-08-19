@@ -72,6 +72,7 @@ The build is made with `sbt`.
   - https://www.google.com/search?q=fnmatch+implemenataion+in+scala
 - detect changed markdown files
 - change markdown from pegdown to kramdown
+- add mega menu https://bootsnipp.com/snippets/featured/bootstrap-mega-menu
 
 ## Bugs
 - hover doesn't work on tablets/devices
