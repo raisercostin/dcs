@@ -5,14 +5,12 @@ import java.nio.file.{ Files, StandardCopyOption }
 import org.raisercostin.sekyll._
 
 import com.lightbend.docs.{ Context, TOC }
-import org.pegdown.{ Extensions, LinkRenderer, PegDownProcessor, VerbatimSerializer }
 import play.api.Logger
 import play.api.libs.json.Json
 import play.doc.PrettifyVerbatimSerializer
 import play.twirl.api.{ Html, Template1 }
 import play.utils.UriEncoding
 
-import scala.collection.JavaConverters._
 import scala.xml.XML
 import org.raisercostin.sekyll.Site
 import org.raisercostin.jedi.Locations
@@ -76,16 +74,7 @@ object DocumentationGenerator extends App {
   val blogDir = new File(args(3))
   val assetFingerPrint = args(4)
 
-  val pegdown = new PegDownProcessor(Extensions.ALL)
-  def markdownToHtml(markdown: String) = {
-    pegdown.markdownToHtml(markdown, new LinkRenderer,
-      Map[String, VerbatimSerializer](VerbatimSerializer.DEFAULT -> PrettifyVerbatimSerializer).asJava)
-  }
-
   val blogPosts = Blog.findBlogPosts(blogDir)
-  val blogPostSummaries = blogPosts.map { post =>
-    post -> Html(markdownToHtml(post.summary))
-  }
   val blogPostTags = blogPosts.flatMap(_.tags).distinct.sorted
   val blogPostsByTag = blogPostTags.map(tag => tag -> blogPosts.filter(_.tags.contains(tag)))
   val blogSummary = {
@@ -96,6 +85,9 @@ object DocumentationGenerator extends App {
 
   implicit val site = Site(currentLagomVersion, currentDocsVersion,
     blogSummary, assetFingerPrint)
+  val blogPostSummaries = blogPosts.map { post =>
+    post -> Html(site.markdownToHtml(post.summary))
+  }
 
   //println(site.baseUrl)
   // Redirects
@@ -142,11 +134,12 @@ object DocumentationGenerator extends App {
         renderMarkdownFiles(childPath, child)
       }
     } else {
+      import scala.collection.JavaConverters._
       val lines = Files.readAllLines(file.toPath).asScala.toList
       lines.dropWhile(!_.startsWith("#")) match {
         case title :: rest =>
           val strippedTitle = title.dropWhile(c => c == '#' || c == ' ')
-          val rendered = markdownToHtml(rest.mkString("\n"))
+          val rendered = site.markdownToHtml(rest.mkString("\n"))
           val page = html.markdown(strippedTitle, Html(rendered))
           Seq(savePage(s"From markdown [$file]", path.replaceAll("\\.md$", ".html"), page))
         case Nil => throw new IllegalArgumentException("Markdown files must start with a heading using the # syntax")
@@ -157,7 +150,7 @@ object DocumentationGenerator extends App {
   // Blog
   val blogPostFiles = {
     val renderedBlogPosts = blogPosts.map { post =>
-      val renderedPost = Html(markdownToHtml(post.markdown))
+      val renderedPost = Html(site.markdownToHtml(post.markdown))
       post -> renderedPost
     }
 
@@ -173,7 +166,7 @@ object DocumentationGenerator extends App {
           blogPostSummaries.find(_._1.id == post.id)
         }
         savePage(s"blogPost tag=$tag", s"blog/tags/$tag.html", html.blog(s"Blog posts tagged with $tag", renderRecent = true, postSummaries))
-    } /*++ site.collections*/ :+ {
+    } ++ site.markdownPages :+ {
       // Index page
       savePage(s"blogPostIndex2", "blog2/index.html", html.blog("Blog2", renderRecent = false, blogPostSummaries.take(10)),
         sitemapPriority = "0.5")

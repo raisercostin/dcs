@@ -30,6 +30,8 @@ libraryDependencies ++= Seq(
     ,"com.lightbend.markdown" %% "lightbend-markdown-server" % "1.5.2"
     ,"org.yaml" % "snakeyaml" % "1.12"
     ,"junit" % "junit" % "4.12" % "test"
+
+    ,"com.vladsch.flexmark" % "flexmark-all" % "0.26.4" //to use only core without dependencies?
 )
 
 resolvers += Resolver.bintrayIvyRepo("typesafe", "ivy-releases")
@@ -192,5 +194,7 @@ WebKeys.pipeline ++= {
 }
 watchSources ++= {
   ((sourceDirectory in Compile).value / "markdown").***.get ++
-    (sourceDirectory.value / "blog").***.get
+    (sourceDirectory.value / "blog").***.get ++
+    (baseDirectory.value / "portfolio").***.get ++
+    (baseDirectory.value / "solutions").***.get
 }

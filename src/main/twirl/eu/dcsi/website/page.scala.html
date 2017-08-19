@@ -1,0 +1,27 @@
+@import eu.dcsi.sekyll.docs.BlogSummary
+@import eu.dcsi.sekyll.docs.BlogPost
+@import org.raisercostin.sekyll._
+@import eu.dcsi.website._
+
+
+@(doc:SiteDocument)(implicit site: Site)
+
+@part.html.main(doc.yaml.getString("title"))()() {
+    <div class="container">
+	        <!-- Page Heading/Breadcrumbs -->
+	        <h1 class="mt-4 mb-3">@doc.yaml.getString("title").getOrElse("no-title")<small>@*site.page.subtitle*@</small></h1>
+	
+			@*TODO breadcrumb from page context*@
+	        <ol class="breadcrumb">
+	            <li class="breadcrumb-item">
+	                <a href="@site.route.home">Home</a>
+	            </li>
+	            <li class="breadcrumb-item active">Partners</li>
+	        </ol>
+        <div class="row">
+            <div class="col-lg-12 markdown">
+	        	@{doc.rendered}
+            </div>
+        </div>
+    </div>
+}

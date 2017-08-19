@@ -50,8 +50,14 @@ object FeedFormatter {
   }
 
   def makeAbsoluteLinks(html: Html, baseUrl: String): Html = {
-    Html(linkFinder.replaceAllIn(html.body, "$1" + baseUrl + "/"))
+    val body1 = html.body
+    val body2 = linkFinder.replaceAllIn(body1, "$1" + baseUrl + "/")
+    val body3 = imgFinder.replaceAllIn(body2, "$1" + baseUrl + "/")
+    val body4 = relImgFinder.replaceAllIn(body3, "$1" + baseUrl + "/")
+    Html(body4)
   }
 
   val linkFinder = """(<a [^>]*href=")/(?![/"])""".r
+  val imgFinder = """(<img [^>]*src=")/(?![/"])""".r
+  val relImgFinder = """(<img [^>]*src=")(?!(http://|https://))""".r
 }

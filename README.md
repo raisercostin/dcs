@@ -6,6 +6,14 @@ A second sample is at http://raisercostin.gitlab.io/sekyll
 
 ## How it works
 
+The content is generated in `docs/` folder.
+Steps:
+  - there are several types of files that will be statical types
+    - **/*.md - markdon files converted to html
+    - `src/main/twirl` - layout/tags pages that are compiled
+       - any page can refer the entire content via `@site.xxx` properties
+    - all other files - copied directly in docs folder
+
 Everything in `docs/` is published at raisercostin.gitlab.io .
 The content in `docs` is a manual copy of a `target/web/stage`.
 
@@ -39,6 +47,10 @@ The build is made with `sbt`.
 - deploy command to release static site to
   - folder
   - other branch
+  - via travis
+    - https://gist.github.com/domenic/ec8b0fc8ab45f39403dd
+    - https://benlimmer.com/2013/12/26/automatically-publish-javadoc-to-gh-pages-with-travis-ci/
+    - https://www.google.ro/search?q=github+publish+gitpages+after+travis
 - render current branch by scripts in
   - github
   - gitlab (for private repos)
@@ -58,6 +70,10 @@ The build is made with `sbt`.
 - fnmatch (gitignore pattern format) implementation in scala 
   - https://gist.github.com/Aivean/6b2bb7c2473b4b7e1376fac1d2d49cf8
   - https://www.google.com/search?q=fnmatch+implemenataion+in+scala
+- detect changed markdown files
+- change markdown from pegdown to kramdown
+- add mega menu https://bootsnipp.com/snippets/featured/bootstrap-mega-menu
+- add markdown import/export - http://freemind.sourceforge.net/wiki/index.php/Import_and_export
 
 ## Bugs
 - hover doesn't work on tablets/devices
