@@ -1,8 +1,8 @@
 ---
 title: EuroCenterBank
 name: EuroCenterBank
-url: 
-logo: EuroCenterBank.png
+image: EuroCenterBank.png
+description: Lorem ipsum dolor sit amet, id platonem salutatus his.
 ---
 
 ![](EuroCenterBank.png)

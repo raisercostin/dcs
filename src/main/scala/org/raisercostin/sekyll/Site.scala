@@ -44,13 +44,17 @@ object DcsSite {
 trait Item{
   def title:Option[String]
   def image:String
+  def fullImage:String
   def rendered:Html
   def slug:String
+  def description:String
 }
 case class SiteDocument(yaml: Yaml, markdown: String, file: FileLocation, site: Site, rendered: Html) extends Item {
   def relative(relativePath: String): RelativeLocation = file.parent.child(relativePath).extractPrefix(Locations.file(site.config.source.getOrElse(""))).get
   def title:Option[String] = yaml.getString("title")
   def image:String = yaml.getString("image").getOrElse("")
+  def fullImage:String = if(isAbsolute(image)) image else slugForChildren+"/"+image
+  def isAbsolute(image:String) = image.startsWith("http://") || image.startsWith("https://") || image.startsWith("://")
   
   def contains(item:SiteDocument):Boolean = {
     val parent = site.slug(this.file)
@@ -60,9 +64,19 @@ case class SiteDocument(yaml: Yaml, markdown: String, file: FileLocation, site: 
     contains
   }
   def slug:String = site.slug(this.file).relativePath
+  def slugForChildren:String = 
+    if(file.baseName=="index")
+      site.slug(this.file).relativePath
+    else
+      site.slug(this.file).parent.relativePath
   //val parent:RelativeLocation = item.file.parent.extractPrefix(item.site.src).get
   //println("parent="+parent)
   //site.isPartOf_.file.ancestor(parent)==parent
+  
+  def description:String = yaml.getString("description").getOrElse("no-description")
+  
+  println(s"SiteDocument: slug $slug from $file")
+  println(s"SiteDocument: slugForChildren $slugForChildren from $file")
 }
 case class FolderItem(item:SiteDocument) extends Item{
   def children:Seq[Item] = item.site.allCollections.filter(item.contains)
@@ -70,6 +84,8 @@ case class FolderItem(item:SiteDocument) extends Item{
   def rendered:Html = item.rendered
   def image:String = item.image
   def slug:String = item.slug
+  def description:String = item.description
+  def fullImage:String = item.fullImage
 }
 
 /**

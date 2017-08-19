@@ -23,10 +23,9 @@
 			@for(child <- item.children){
 		    <div class="col-lg-6 portfolio-item">
 		        <div class="card h-100">
-		            <a href="#"><img class="card-img-top img-fluid" src="@child.image" alt=""></a>
 		            <div class="card-block">
-		                <h4 class="card-title"><a href="@child.slug">@child.title</a></h4>
-		                <p class="card-text">@child.rendered</p>
+		                <h4 class="card-title"><a href="@child.slug"><img class="card-img-top img-fluid" src="@child.fullImage" alt="@child.title"></a></h4>
+		                <p class="card-text">@child.description</p>
 		            </div>
 		        </div>
 		    </div>
