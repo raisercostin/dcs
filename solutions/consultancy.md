@@ -1,5 +1,5 @@
 ---
-title: Solutions
+title: Consultancy
 layout: folder
 ---
 

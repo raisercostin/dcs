@@ -1,9 +1,6 @@
 ---
-title: portfolio
-name: portfolio
-url: https://eveolveum.com
-logo: evolveum/evolveum-logo-trademark.png
+title: Portfolio
+layout: folder
 ---
 
-- [clients](clients)
-- [partners](partners)
+Our work

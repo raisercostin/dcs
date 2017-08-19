@@ -1,36 +1,39 @@
 @import eu.dcsi.sekyll.docs.BlogSummary
+@import eu.dcsi.sekyll.docs.BlogPost
 @import org.raisercostin.sekyll._
 @import eu.dcsi.website._
 
-@(implicit site: Site)
-@part.html.main(Some("DCSI"))()() {
-    <!-- Page Content -->
+@(item:FolderItem)(implicit site: Site)
+
+@part.html.main(item.title)()() {
     <div class="container">
-
-        <!-- Page Heading/Breadcrumbs -->
-        <h1 class="mt-4 mb-3">Partners<small>@*site.page.subtitle*@</small></h1>
-
-		@*TODO breadcrumb from page context*@
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
                 <a href="@site.route.home">Home</a>
             </li>
-            <li class="breadcrumb-item active">Partners</li>
+            <li class="breadcrumb-item active">@item.title.getOrElse("Folder")</li>
         </ol>
-        <div class="row">
-        	@for(partner <- site.partners){
-            <div class="col-lg-6 portfolio-item">
-                <div class="card h-100">
-                    <a href="#"><img class="card-img-top img-fluid" src="@partner.logo" alt=""></a>
-                    <div class="card-block">
-                        <h4 class="card-title"><a href="#">@partner.name</a></h4>
-                        <p class="card-text">@partner.rendered</p>
-                    </div>
-                </div>
+        <h1 class="mt-4 mb-3">@item.title.getOrElse("no-title")<small>@*site.page.subtitle*@</small></h1>
+	    <div class="row">
+            <div class="col-lg-12">
+	        	@{item.rendered}
             </div>
-            }
         </div>
-
+		<div class="row">
+			@for(child <- item.children){
+		    <div class="col-lg-6 portfolio-item">
+		        <div class="card h-100">
+		            <a href="#"><img class="card-img-top img-fluid" src="@child.image" alt=""></a>
+		            <div class="card-block">
+		                <h4 class="card-title"><a href="@child.slug">@child.title</a></h4>
+		                <p class="card-text">@child.rendered</p>
+		            </div>
+		        </div>
+		    </div>
+		    }
+		</div>
+    </div>
+}
 		@*
         <!-- Pagination -->
         <ul class="pagination justify-content-center">
@@ -51,5 +54,3 @@
             </li>
         </ul>
         *@
-    </div>
-}

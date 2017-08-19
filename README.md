@@ -73,6 +73,7 @@ The build is made with `sbt`.
 - detect changed markdown files
 - change markdown from pegdown to kramdown
 - add mega menu https://bootsnipp.com/snippets/featured/bootstrap-mega-menu
+- add markdown import/export - http://freemind.sourceforge.net/wiki/index.php/Import_and_export
 
 ## Bugs
 - hover doesn't work on tablets/devices
