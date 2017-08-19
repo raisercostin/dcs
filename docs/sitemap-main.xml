@@ -1,9 +1,5 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/dcs/partners</loc>
-    <priority>1.0</priority>
-  </url>
-  <url>
     <loc>/dcs/index2.html</loc>
     <priority>1.0</priority>
   </url>
@@ -138,6 +134,74 @@
   <url>
     <loc>/dcs/blog/tags/sample.html</loc>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>/dcs/portfolio/clients/DFPRADM</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>/dcs/portfolio/clients/euroCenterBank</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>/dcs/portfolio/clients/gothaer</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>/dcs/portfolio/clients</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>/dcs/portfolio/clients/oracle</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>/dcs/portfolio</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>/dcs/portfolio/partners/evolveum</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>/dcs/portfolio/partners/evolveum2</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>/dcs/portfolio/partners</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>/dcs/README</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>/dcs/solutions/consultancy/integration/wso2</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>/dcs/solutions/consultancy/user-management/evolveum</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>/dcs/solutions/consultancy</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>/dcs/solutions/development</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>/dcs/solutions/development/java</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>/dcs/solutions/development/scala</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>/dcs/solutions</loc>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>/dcs/blog2</loc>

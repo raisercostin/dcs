@@ -36,15 +36,15 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle hidden-lg-up" href="portfolio" id="navbarDropdownOurWork" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            PORTOFOLIO
+                            PORTFOLIO
                         </a>
                         <a class="nav-link dropdown-toggle hidden-md-down" href="portfolio" id="navbarDropdownOurWork"  aria-haspopup="true" aria-expanded="false">
-                            PORTOFOLIO
+                            PORTFOLIO
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-on-hover" aria-labelledby="navbarDropdownOurWork">
                             <a class="dropdown-item hidden-lg-up" href="portfolio">Portfolio</a>
-                            <a class="dropdown-item" href="clients">Clients</a>
-                            <a class="dropdown-item" href="partners">Partners</a>
+                            <a class="dropdown-item" href="portfolio/clients">Clients</a>
+                            <a class="dropdown-item" href="portfolio/partners">Partners</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="portfolio-1-col.html">1 Column Portfolio</a>
                             <a class="dropdown-item" href="portfolio-2-col.html">2 Column Portfolio</a>
@@ -53,7 +53,7 @@
                             <a class="dropdown-item" href="portfolio-item.html">Single Portfolio Item</a>
                         </div>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown mega-dropdown">
                         <a class="nav-link dropdown-toggle hidden-lg-up" href="solutions" id="navbarDropdownSolutions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             SOLUTIONS
                         </a>
@@ -63,18 +63,18 @@
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-on-hover" aria-labelledby="navbarDropdownSolutions">
                             <a class="dropdown-item hidden-lg-up" href="solutions">Solutions</a>
                         	
-                            <a class="dropdown-item" href="services">Products</a>
+                            <a class="dropdown-item" href="solutions/consultancy">Consultancy</a>
                             
-                            <a class="dropdown-item" href="Development">Development</a>
+                            <a class="dropdown-item" href="solutions/products">Products</a>
                             
-                            <a class="dropdown-item" href="Consultancy">Consultancy</a>
+                            <a class="dropdown-item" href="solutions/development">Development</a>
                             
-                            <a class="dropdown-item" href="Maintenance &amp; Support">Maintenance &amp; Support</a>
+                            <a class="dropdown-item" href="solutions/maintenance-support">Maintenance &amp; Support</a>
                             
-                            <a class="dropdown-item" href="Academy">Academy</a>
+                            <a class="dropdown-item" href="solutions/academy">Academy</a>
                             
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="services.html">Services</a>
+                            <a class="dropdown-item" href="services">Services</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -159,69 +159,82 @@
                 <hr>
 
                 <!-- Post Content -->
-                <h1><a href="#sekyll" name="sekyll">Sekyll</a></h1>
-<h1><a href="#how-it-works" name="how-it-works">How it works</a></h1>
-<p>Everything in <code>public/</code> is published at raisercostin.gitlab.io .<br/>The content in <code>public</code> is a manual copy of a <code>target/web/stage</code>.</p>
-<h2><a href="#generating-site-locally" name="generating-site-locally">Generating site locally</a></h2>
-<p>The build is made with <code>sbt</code>.<br/>- eclipse: <code>sbt eclipse</code><br/>- compile: <code>sbt clean compile</code><br/>- generate web: <code>sbt webStage</code><br/>- start server for in dev mode with autorefresh: <code>sbt run</code> . Then go on <a href="http://localhost:8080/">http://localhost:8080/</a><br/>- start server in debug mode <code>activator -jvm-debug 5005 &quot;run 8080&quot;</code></p>
-<h1><a href="#features" name="features">Features</a></h1>
-<h2><a href="#history" name="history">History</a></h2>
-<h3>2017-08-11</h3>
+                <h1 id="sekyll">Sekyll</h1>
+<h1 id="how-it-works">How it works</h1>
+<p>Everything in <code>public/</code> is published at raisercostin.gitlab.io . The content in <code>public</code> is a manual copy of a <code>target/web/stage</code>.</p>
+<h2 id="generating-site-locally">Generating site locally</h2>
+<p>The build is made with <code>sbt</code>. - eclipse: <code>sbt eclipse</code> - compile: <code>sbt clean compile</code> - generate web: <code>sbt webStage</code> - start server for in dev mode with autorefresh: <code>sbt run</code> . Then go on http://localhost:8080/ - start server in debug mode <code>activator -jvm-debug 5005 &quot;run 8080&quot;</code></p>
+<h1 id="features">Features</h1>
+<h2 id="history">History</h2>
+<h3 id="2017-08-11">2017-08-11</h3>
 <ul>
-  <li>more control of assetFingerPrint:</li>
-</ul>
+<li>more control of assetFingerPrint:
 <ol>
-  <li>manually changed in the <code>publicVersion</code> value in <code>build.sbt</code>? Drawback: browsers might cache styles and javascripts for long time and will not reload new versions. The generator should generate a new file from time to time or when the resources are changed.</li>
+<li>manually changed in the <code>publicVersion</code> value in <code>build.sbt</code>? Drawback: browsers might cache styles and javascripts for long time and will not reload new versions. The generator should generate a new file from time to time or when the resources are changed.</li>
 </ol>
-<h1><a href="#backlog" name="backlog">Backlog</a></h1>
-<h2><a href="#todo" name="todo">ToDo</a></h2>
-<ul>
-  <li>publish at <a href="http://sekyll.gitlab.io">http://sekyll.gitlab.io</a> and <a href="http://sekyll.github.io">http://sekyll.github.io</a></li>
-  <li>generate directly in <code>public/</code> not in <code>target/web/stage</code></li>
-  <li>switch from style and sass to less as less has native compilation in sbt.</li>
-  <li>cleanup</li>
-  <li>deploy command to release static site to</li>
-  <li>folder</li>
-  <li>other branch</li>
-  <li>render current branch by scripts in</li>
-  <li>github</li>
-  <li>gitlab (for private repos)</li>
+</li>
 </ul>
-<h2><a href="#how-could-work" name="how-could-work">How could work</a></h2>
+<h1 id="backlog">Backlog</h1>
+<h2 id="todo">ToDo</h2>
 <ul>
-  <li>Generate in a separate branch and publish from there.</li>
-  <li>There are some issues on keeping the history of that.</li>
-  <li>Uploading only the sources and generate the public folder at runtime has the drawback of not having the history of the final generated site.</li>
+<li>publish at http://sekyll.gitlab.io and http://sekyll.github.io</li>
+<li>generate directly in <code>public/</code> not in <code>target/web/stage</code></li>
+<li>switch from style and sass to less as less has native compilation in sbt.</li>
+<li>cleanup</li>
+<li>deploy command to release static site to
+<ul>
+<li>folder</li>
+<li>other branch</li>
 </ul>
-<h2><a href="#quircks" name="quircks">Quircks</a></h2>
+</li>
+<li>render current branch by scripts in
+<ul>
+<li>github</li>
+<li>gitlab (for private repos)</li>
+</ul>
+</li>
+</ul>
+<h2 id="how-could-work">How could work</h2>
+<ul>
+<li>Generate in a separate branch and publish from there.
+<ul>
+<li>There are some issues on keeping the history of that.</li>
+</ul>
+</li>
+<li>Uploading only the sources and generate the public folder at runtime has the drawback of not having the history of the final generated site.</li>
+</ul>
+<h2 id="quircks">Quircks</h2>
 <p>Here we explain what we tried and failed.</p>
-<h3><a href="#gitlab" name="gitlab">Gitlab</a></h3>
+<h3 id="gitlab">Gitlab</h3>
 <ul>
-  <li>Don&rsquo;t publish the <code>target/web/stage</code> folder directory by configuring it in <code>.gitlab-ci.yml</code> as this will fail.</li>
-  <li>Sass and Style sbt-web plugins need external dependency on nodejs/npm and it will take longer time to compile.</li>
-  <li>Sbt fails to build in gitlab after 1h.</li>
+<li>Don&rsquo;t publish the <code>target/web/stage</code> folder directory by configuring it in <code>.gitlab-ci.yml</code> as this will fail.</li>
+<li>Sass and Style sbt-web plugins need external dependency on nodejs/npm and it will take longer time to compile.</li>
+<li>Sbt fails to build in gitlab after 1h.</li>
 </ul>
-<h2><a href="#rejected" name="rejected">Rejected</a></h2>
+<h2 id="rejected">Rejected</h2>
 <ul>
-  <li>more control of assetFingerPrint:</li>
-  <li>based on the git head: <code>val assetFingerPrint = &quot;git rev-parse HEAD&quot;.!!.trim</code>
-    <ul>
-      <li>This has the problem that on any change anywhere all the files are affected.</li>
-    </ul>
-  </li>
-  <li>based on the actual content of each generated/combined file instead of current version in head.
-    <ul>
-      <li>This is a fingerprinting on each file. Might work if a fingerprint on content on all of the files is computed.</li>
-    </ul>
-  </li>
+<li>more control of assetFingerPrint:
+<ul>
+<li>based on the git head: <code>val assetFingerPrint = &quot;git rev-parse HEAD&quot;.!!.trim</code>
+<ul>
+<li>This has the problem that on any change anywhere all the files are affected.</li>
 </ul>
-<h1><a href="#old-lagom-site" name="old-lagom-site">Old lagom site</a></h1>
-<h2><a href="#lagom-website" name="lagom-website">Lagom website</a></h2>
+</li>
+<li>based on the actual content of each generated/combined file instead of current version in head.
+<ul>
+<li>This is a fingerprinting on each file. Might work if a fingerprint on content on all of the files is computed.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="old-lagom-site">Old lagom site</h1>
+<h2 id="lagom-website">Lagom website</h2>
 <p>This project is responsible for generating the Lagom website.</p>
-<p>The Lagom website is a static website deployed to GitHub pages that is generated from this project. This project uses twirl for templating, along with sbt-web to process web assets and webjar for dependencies.</p>
-<p>The documentation is generated from the lagom main project as unstyled HTML snippets, along with javadocs/scaladocs, and an index file that describes the navigation structure of the documentation. Each time the website is generated, the documentation pages are recreated from these HTML snippets, allowing the layout and styling to be kept up to date, and allowing links between versions of the documentation.</p>
-<h3><a href="#project-layout" name="project-layout">Project layout</a></h3>
-<pre class="prettyprint"><code>- src
+<p>The Lagom website is a static website deployed to GitHub pages that is generated from this project.  This project uses twirl for templating, along with sbt-web to process web assets and webjar for dependencies.</p>
+<p>The documentation is generated from the lagom main project as unstyled HTML snippets, along with javadocs/scaladocs, and an index file that describes the navigation structure of the documentation.  Each time the website is generated, the documentation pages are recreated from these HTML snippets, allowing the layout and styling to be kept up to date, and allowing links between versions of the documentation.</p>
+<h3 id="project-layout">Project layout</h3>
+<pre><code>- src
   - blog - each markdown file in here gets converted to a blog post
   - docs
     - 1.0.x - the documentation for each version of Lagom
@@ -234,17 +247,18 @@
     - public - static assets, eg images
     - scala - the Scala source code that actually does the documentation generation
 </code></pre>
-<h3><a href="#developing-the-website" name="developing-the-website">Developing the website</a></h3>
-<p>A static version of the website can be generated by running <code>sbt web-stage</code>. This will output the entire website to the <code>target/web/stage</code> directory. You should start a simple HTTP server from here to serve the docs, eg using <code>python -m SimpleHTTPServer</code>. The <code>sbt ~web-stage</code> command can be used to tell sbt to watch for changes and rebuild the site whenever anything changes.</p>
+<h3 id="developing-the-website">Developing the website</h3>
+<p>A static version of the website can be generated by running <code>sbt web-stage</code>.  This will output the entire website to the <code>target/web/stage</code> directory.  You should start a simple HTTP server from here to serve the docs, eg using <code>python -m SimpleHTTPServer</code>.  The <code>sbt ~web-stage</code> command can be used to tell sbt to watch for changes and rebuild the site whenever anything changes.</p>
 <p>For convenience, <code>sbt run</code> does the above for you, starting a static Akka HTTP server in the stage directory, and then watching the filesystem for changes and rebuilding the site whenever it changes.</p>
-<h3><a href="#deploying-the-documentation" name="deploying-the-documentation">Deploying the documentation</a></h3>
-<p>A new version of the markdown docs can be generated by running <code>sbt markdownGenerateAllDocumentation</code> in the <code>docs</code> directory of the main Lagom project, this outputs the documentation to <code>docs/target/markdown-generated-docs</code>. This can be then copied into the corresponding <code>src/docs/&lt;version&gt;</code> directory in this project.</p>
-<p>A new version of the API docs can be generated by running <code>sbt unidoc</code> in the main Lagom project. This will output the javadocs in <code>target/javaunidoc</code>, which can then be copied into the corresponding <code>src/docs/&lt;version&gt;/api/java</code> directory in this project.</p>
-<h3><a href="#writing-blog-posts" name="writing-blog-posts">Writing blog posts</a></h3>
+<h3 id="deploying-the-documentation">Deploying the documentation</h3>
+<p>A new version of the markdown docs can be generated by running <code>sbt markdownGenerateAllDocumentation</code> in the <code>docs</code> directory of the main Lagom project, this outputs the documentation to <code>docs/target/markdown-generated-docs</code>.  This can be then copied into the corresponding <code>src/docs/&lt;version&gt;</code> directory in this project.</p>
+<p>A new version of the API docs can be generated by running <code>sbt unidoc</code> in the main Lagom project.  This will output the javadocs in <code>target/javaunidoc</code>, which can then be copied into the corresponding <code>src/docs/&lt;version&gt;/api/java</code> directory in this project.</p>
+<h3 id="writing-blog-posts">Writing blog posts</h3>
 <p>Lagom uses a format similar to Jekyll for writing blog posts. Blog posts are written in markdown, prefixed with a front matter in YAML format. To create a new blog post, copy the <code>src/blog/_template.md</code> file to a new file in the same directory. The name of the file should match the URL that you want it served at, so for example, if you want it to be served at <code>blog/my-blog-post.html</code>, it should be in <code>src/blog/my-blog-post.md</code>.</p>
 <p>Edit the front matter to suit your needs. The <code>title</code> and <code>date</code> fields are compulsory. The <code>author_github</code>, if provided, will be used by the website generator to lookup the author details from GitHub, including the name, URL and Avatar of the author. These can all be overridden, and must be provided manually if no GitHub username is provided, using the <code>author_name</code>, <code>author_url</code> and <code>author_avatar</code> fields.</p>
 <p>The <code>tags</code> field can be used to specify a space separated list of tags. Multi-word tags can be configured by separating the words with a <code>+</code> symbol. The <code>summary</code> field can be used to provide a summary, this is what&rsquo;s displayed on the blog index page as well as on the tag index pages, and it will be markdown rendered. Usually it will simply be the first paragraph of the blog post.</p>
 <p>The remainder of the file is the blog post. You can preview your blog post by following the <a href="#developing-the-website">Developing the website</a> instructions above.</p>
+
                 
 
                 <!-- Comments Form -->

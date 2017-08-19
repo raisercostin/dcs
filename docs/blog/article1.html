@@ -36,15 +36,15 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle hidden-lg-up" href="portfolio" id="navbarDropdownOurWork" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            PORTOFOLIO
+                            PORTFOLIO
                         </a>
                         <a class="nav-link dropdown-toggle hidden-md-down" href="portfolio" id="navbarDropdownOurWork"  aria-haspopup="true" aria-expanded="false">
-                            PORTOFOLIO
+                            PORTFOLIO
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-on-hover" aria-labelledby="navbarDropdownOurWork">
                             <a class="dropdown-item hidden-lg-up" href="portfolio">Portfolio</a>
-                            <a class="dropdown-item" href="clients">Clients</a>
-                            <a class="dropdown-item" href="partners">Partners</a>
+                            <a class="dropdown-item" href="portfolio/clients">Clients</a>
+                            <a class="dropdown-item" href="portfolio/partners">Partners</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="portfolio-1-col.html">1 Column Portfolio</a>
                             <a class="dropdown-item" href="portfolio-2-col.html">2 Column Portfolio</a>
@@ -53,7 +53,7 @@
                             <a class="dropdown-item" href="portfolio-item.html">Single Portfolio Item</a>
                         </div>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown mega-dropdown">
                         <a class="nav-link dropdown-toggle hidden-lg-up" href="solutions" id="navbarDropdownSolutions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             SOLUTIONS
                         </a>
@@ -63,18 +63,18 @@
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-on-hover" aria-labelledby="navbarDropdownSolutions">
                             <a class="dropdown-item hidden-lg-up" href="solutions">Solutions</a>
                         	
-                            <a class="dropdown-item" href="services">Products</a>
+                            <a class="dropdown-item" href="solutions/consultancy">Consultancy</a>
                             
-                            <a class="dropdown-item" href="Development">Development</a>
+                            <a class="dropdown-item" href="solutions/products">Products</a>
                             
-                            <a class="dropdown-item" href="Consultancy">Consultancy</a>
+                            <a class="dropdown-item" href="solutions/development">Development</a>
                             
-                            <a class="dropdown-item" href="Maintenance &amp; Support">Maintenance &amp; Support</a>
+                            <a class="dropdown-item" href="solutions/maintenance-support">Maintenance &amp; Support</a>
                             
-                            <a class="dropdown-item" href="Academy">Academy</a>
+                            <a class="dropdown-item" href="solutions/academy">Academy</a>
                             
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="services.html">Services</a>
+                            <a class="dropdown-item" href="services">Services</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -159,14 +159,13 @@
                 <hr>
 
                 <!-- Post Content -->
-                <h2>Copied from jekyll:</h2>
-<p>title: Welcome<br/>permalink: /docs/home/</p>
-<h2>redirect_from: /docs/index.html</h2>
-<p>This site aims to be a comprehensive guide to Jekyll. We’ll cover topics such<br/>as getting your site up and running, creating and managing your content,<br/>customizing the way your site works and looks, deploying to various<br/>environments, and give you some advice on participating in the future<br/>development of Jekyll itself.</p>
-<h2><a href="#so-what-is-jekyll-exactly-" name="so-what-is-jekyll-exactly-">So what is Jekyll, exactly?</a></h2>
-<p>Jekyll is a simple, blog-aware, static site generator. It takes a template<br/>directory containing raw text files in various formats, runs it through<br/>a converter (like <a href="https://daringfireball.net/projects/markdown/">Markdown</a>)<br/>and our <a href="https://github.com/Shopify/liquid/wiki">Liquid</a> renderer, and<br/>spits out a complete, ready-to-publish static website suitable<br/>for serving with your favorite web server. Jekyll also happens to be the engine<br/>behind <a href="https://pages.github.com">GitHub Pages</a>, which means you can use Jekyll<br/>to host your project’s page, blog, or website from GitHub’s servers <strong>for<br/>free</strong>.</p>
-<h2><a href="#helpful-hints" name="helpful-hints">Helpful Hints</a></h2>
-<p>Throughout this guide there are a number of small-but-handy pieces of<br/>information that can make using Jekyll easier, more interesting, and less<br/>hazardous. Here’s what to look out for.</p>
+                <h2 id="copied-from-jekyll">Copied from jekyll:</h2>
+<h2 id="title-welcomepermalink-docshomeredirect-from-docsindexhtml">title: Welcome permalink: /docs/home/ redirect_from: /docs/index.html</h2>
+<p>This site aims to be a comprehensive guide to Jekyll. We’ll cover topics such as getting your site up and running, creating and managing your content, customizing the way your site works and looks, deploying to various environments, and give you some advice on participating in the future development of Jekyll itself.</p>
+<h2 id="so-what-is-jekyll-exactly">So what is Jekyll, exactly?</h2>
+<p>Jekyll is a simple, blog-aware, static site generator. It takes a template directory containing raw text files in various formats, runs it through a converter (like <a href="https://daringfireball.net/projects/markdown/">Markdown</a>) and our <a href="https://github.com/Shopify/liquid/wiki">Liquid</a> renderer, and spits out a complete, ready-to-publish static website suitable for serving with your favorite web server. Jekyll also happens to be the engine behind <a href="https://pages.github.com">GitHub Pages</a>, which means you can use Jekyll to host your project’s page, blog, or website from GitHub’s servers <strong>for free</strong>.</p>
+<h2 id="helpful-hints">Helpful Hints</h2>
+<p>Throughout this guide there are a number of small-but-handy pieces of information that can make using Jekyll easier, more interesting, and less hazardous. Here’s what to look out for.</p>
 <div class="note">
   <h5>ProTips™ help you get more from Jekyll</h5>
   <p>These are tips and tricks that will help you be a Jekyll wizard!</p>
@@ -185,7 +184,8 @@
   <p>Some pieces of this website are for future versions of Jekyll that
     are not yet released.</p>
 </div>
-<p>If you come across anything along the way that we haven’t covered, or if you<br/>know of a tip you think others would find handy, please [file an<br/>issue]({{ site.repository }}/issues/new) and we’ll see about<br/>including it in this guide.</p>
+<p>If you come across anything along the way that we haven’t covered, or if you know of a tip you think others would find handy, please [file an issue]({{ site.repository }}/issues/new) and we’ll see about including it in this guide.</p>
+
                 
 
                 <!-- Comments Form -->

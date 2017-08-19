@@ -17636,6 +17636,8 @@ function scrollUpBinding(){
         return false;
     });
 }
+
+
 /** js\contact_me.js **/
 /*
   Jquery Validation using jqBootstrapValidation
