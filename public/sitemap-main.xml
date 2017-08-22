@@ -1,214 +1,214 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/dcs/index2.html</loc>
+    <loc>/index2.html</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>/dcs/get-involved.html</loc>
+    <loc>/get-involved.html</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>/dcs/get-started.html</loc>
+    <loc>/get-started.html</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>/dcs/get-started-java.html</loc>
+    <loc>/get-started-java.html</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>/dcs/get-started-java-sbt.html</loc>
+    <loc>/get-started-java-sbt.html</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>/dcs/get-started-java-maven.html</loc>
+    <loc>/get-started-java-maven.html</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>/dcs/get-started-scala.html</loc>
+    <loc>/get-started-scala.html</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>/dcs/about</loc>
+    <loc>/about</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>/dcs/contact</loc>
+    <loc>/contact</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>/dcs/blog-home-1.html</loc>
+    <loc>/blog-home-1.html</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>/dcs/blog-home-2.html</loc>
+    <loc>/blog-home-2.html</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>/dcs/faq.html</loc>
+    <loc>/faq.html</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>/dcs/full-width.html</loc>
+    <loc>/full-width.html</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>/dcs/</loc>
+    <loc>/</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>/dcs/404.html</loc>
+    <loc>/404.html</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>/dcs/portfolio-1-col.html</loc>
+    <loc>/portfolio-1-col.html</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>/dcs/portfolio-2-col.html</loc>
+    <loc>/portfolio-2-col.html</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>/dcs/portfolio-3-col.html</loc>
+    <loc>/portfolio-3-col.html</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>/dcs/portfolio-4-col.html</loc>
+    <loc>/portfolio-4-col.html</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>/dcs/portfolio-item.html</loc>
+    <loc>/portfolio-item.html</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>/dcs/pricing.html</loc>
+    <loc>/pricing.html</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>/dcs/services</loc>
+    <loc>/services</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>/dcs/sidebar.html</loc>
+    <loc>/sidebar.html</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>/dcs/documentation</loc>
+    <loc>/documentation</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>/dcs/404-2.html</loc>
+    <loc>/404-2.html</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>/dcs/changelog.html</loc>
+    <loc>/changelog.html</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>/dcs/community-process.html</loc>
+    <loc>/community-process.html</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>/dcs/conduct.html</loc>
+    <loc>/conduct.html</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>/dcs/contributing.html</loc>
+    <loc>/contributing.html</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>/dcs/blog/article2.html</loc>
+    <loc>/blog/article2.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>/dcs/blog/article1.html</loc>
+    <loc>/blog/article1.html</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>/dcs/blog/tags/news.html</loc>
+    <loc>/blog/tags/news.html</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>/dcs/blog/tags/readme.html</loc>
+    <loc>/blog/tags/readme.html</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>/dcs/blog/tags/sample.html</loc>
+    <loc>/blog/tags/sample.html</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>/dcs/portfolio/clients/DFPRADM</loc>
+    <loc>/portfolio/clients/DFPRADM</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>/dcs/portfolio/clients/euroCenterBank</loc>
+    <loc>/portfolio/clients/euroCenterBank</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>/dcs/portfolio/clients/gothaer</loc>
+    <loc>/portfolio/clients/gothaer</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>/dcs/portfolio/clients</loc>
+    <loc>/portfolio/clients</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>/dcs/portfolio/clients/oracle</loc>
+    <loc>/portfolio/clients/oracle</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>/dcs/portfolio</loc>
+    <loc>/portfolio</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>/dcs/portfolio/partners/evolveum</loc>
+    <loc>/portfolio/partners/evolveum</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>/dcs/portfolio/partners/evolveum2</loc>
+    <loc>/portfolio/partners/evolveum2</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>/dcs/portfolio/partners</loc>
+    <loc>/portfolio/partners</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>/dcs/README</loc>
+    <loc>/README</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>/dcs/solutions/consultancy/integration/wso2</loc>
+    <loc>/solutions/consultancy/integration/wso2</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>/dcs/solutions/consultancy/user-management/evolveum</loc>
+    <loc>/solutions/consultancy/user-management/evolveum</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>/dcs/solutions/consultancy</loc>
+    <loc>/solutions/consultancy</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>/dcs/solutions/development</loc>
+    <loc>/solutions/development</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>/dcs/solutions/development/java</loc>
+    <loc>/solutions/development/java</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>/dcs/solutions/development/scala</loc>
+    <loc>/solutions/development/scala</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>/dcs/solutions</loc>
+    <loc>/solutions</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>/dcs/blog2</loc>
+    <loc>/blog2</loc>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>/dcs/blog</loc>
+    <loc>/blog</loc>
     <priority>0.5</priority>
   </url>
 </urlset>
