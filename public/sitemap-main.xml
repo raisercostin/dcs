@@ -136,6 +136,10 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>/portfolio/case-study/onrc</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>/portfolio/clients/DFPRADM</loc>
     <priority>0.8</priority>
   </url>
@@ -176,11 +180,23 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>/solutions/consultancy/iam/evolveum</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>/solutions/consultancy/iam/glue</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>/solutions/consultancy/iam</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>/solutions/consultancy/integration/wso2</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>/solutions/consultancy/user-management/evolveum</loc>
+    <loc>/solutions/consultancy/integration</loc>
     <priority>0.8</priority>
   </url>
   <url>
