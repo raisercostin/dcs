@@ -4,6 +4,7 @@ A second sample is at http://raisercostin.gitlab.io/sekyll
 
 # Sekyll
 
+
 ## How it works
 
 The content is generated in `docs/` folder.
