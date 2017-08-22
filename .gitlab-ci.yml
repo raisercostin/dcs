@@ -1,12 +1,9 @@
-#gitlab scritps
 image: alpine:latest
 
 pages:
   stage: deploy
   script:
-  - echo "starting static noop script"
-  - mkdir public
-  - cp -rp docs public
+  - echo 'Nothing to do...'
   artifacts:
     paths:
     - public
