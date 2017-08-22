@@ -12,6 +12,7 @@ exclude:
   - .sekyll
   - build.sbt
   - eclipse.sbt
-  - docs
   - README.me
-destination: docs
+  - .tmpBin
+  - public # don't autocopy
+destination: public

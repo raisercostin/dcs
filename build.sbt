@@ -8,8 +8,8 @@ lazy val `dcs` = (project in file("."))
 scalaVersion := "2.11.7"
 //scalacOptions += "-Ylog-classpath"
 JsEngineKeys.engineType := JsEngineKeys.EngineType.Node
-WebKeys.stagingDirectory := file("docs")
-cleanFiles <+= baseDirectory { base => base / "docs" }
+WebKeys.stagingDirectory := file("public")
+cleanFiles <+= baseDirectory { base => base / "public" }
 resolvers += "raisercostin repository" at "http://dl.bintray.com/raisercostin/maven"
 libraryDependencies ++= Seq(
 /*
@@ -132,7 +132,7 @@ val generateHtml = taskKey[Seq[File]]("Generate the site HTML")
 target in generateHtml := WebKeys.webTarget.value / "generated-html"
 generateHtml <<= Def.taskDyn {
   val outputDir = (target in generateHtml).value
-  val docsDir = sourceDirectory.value / "docs"
+  val docsDir = sourceDirectory.value / "public"
   val markdownDir = (sourceDirectory in Compile).value / "markdown"
   val blogDir = sourceDirectory.value / "blog"
   Def.task {
