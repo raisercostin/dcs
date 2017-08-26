@@ -75,6 +75,8 @@ The build is made with `sbt`.
 - change markdown from pegdown to kramdown
 - add mega menu https://bootsnipp.com/snippets/featured/bootstrap-mega-menu
 - add markdown import/export - http://freemind.sourceforge.net/wiki/index.php/Import_and_export
+- include pages from markdown
+- iterators in markdown?
 
 ## Bugs
 - hover doesn't work on tablets/devices

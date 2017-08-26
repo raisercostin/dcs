@@ -239,3 +239,20 @@ html {
 .markdown table tr td > :last-child {
   margin-bottom: 0;
 }
+
+
+
+/*Stiky footer: https://getbootstrap.com/docs/4.0/examples/sticky-footer/ */
+html{
+	position: relative;
+	min-height: 100%;
+}
+body{
+    margin-bottom: 120px;
+}
+footer{
+	margin-bottom: 0px;
+	bottom: 0;
+	position: absolute;
+	width: 100%;
+}
