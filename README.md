@@ -63,6 +63,21 @@ The build is made with `sbt`.
   - https://css-tricks.com/semantic-class-names/
   - https://stackoverflow.com/questions/22133639/bootstrap-and-html5-semantic-tags
   - https://stackoverflow.com/questions/23583235/how-to-combine-twitter-bootstrap-3-and-html5-semantic-elements
+  - https://www.w3schools.com/html/html5_semantic_elements.asp
+        Tag	Description
+        <article>	Defines an article
+        <aside>	Defines content aside from the page content
+        <details>	Defines additional details that the user can view or hide
+        <figcaption>	Defines a caption for a <figure> element
+        <figure>	Specifies self-contained content, like illustrations, diagrams, photos, code listings, etc.
+        <footer>	Defines a footer for a document or section
+        <header>	Specifies a header for a document or section
+        <main>	Specifies the main content of a document
+        <mark>	Defines marked/highlighted text
+        <nav>	Defines navigation links
+        <section>	Defines a section in a document
+        <summary>	Defines a visible heading for a <details> element
+        <time>	Defines a date/time
 - render first requested page and continue with others in background (to speedup dev lifecycle)
 - add `@site.page` context info about current page. Two ways to implement it:
   - the iterator should modify this.
